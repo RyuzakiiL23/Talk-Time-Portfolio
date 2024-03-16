@@ -57,7 +57,7 @@ export default function Conversations() {
 				</div>
 				<div className="">
 					<h3 className="text-md mt-4">Recent</h3>
-					<div className="overflow-auto scrollbar-thumb-slate-700 scrollbar-track-slate-300 scrollbar-thin h-[580px]">
+					<div className="overflow-auto scrollbar-thumb-slate-700 scrollbar-track-slate-300 scrollbar-thin h-[400px]">
 						{conversations.map((item) => (
 							<div
 								key={item._id}
