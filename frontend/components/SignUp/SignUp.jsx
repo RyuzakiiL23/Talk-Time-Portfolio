@@ -7,6 +7,7 @@ import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 
 import { useDispatch, useSelector } from "react-redux";
 import { authentificated } from "../../lib/Features/Auth/authSlice";
+import toast from "react-hot-toast";
 
 export default function SignUp(props) {
 	const [showPass, setShowPass] = useState("password");
@@ -34,6 +35,17 @@ export default function SignUp(props) {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		try {
+
+			// handle error if password and verifyPassword are not the same
+			if (inputs.password !== inputs.verifyPassword) {
+				throw new Error("Passwords do not match!");
+			}
+
+			// handle error if password is less than 6 characters
+            if (inputs.password.length < 6) {
+                throw new Error("Password must be at least 6 characters long!");
+            }
+
 			const res = await fetch("http://localhost:8080/api/auth/signup", {
 				method: "POST",
 				credentials:'include',
@@ -48,7 +60,9 @@ export default function SignUp(props) {
 			localStorage.setItem("chat-user", JSON.stringify(data));
 			dispatch(authentificated());
 		} catch (error) {
-			console.log(`error: ${error} `);
+			// console.log(`error: ${error} `);
+			console.error("Error:", error);
+			toast.error(error.message);
 		}
 	};
 
@@ -57,6 +71,7 @@ export default function SignUp(props) {
 
 	return (
 		<div className="w-[340px] relative flex flex-col p-4 rounded-md text-black bg-white">
+			<div style={{ height: '30px' }} /> {/* Add space above the logo */}
 			<Image
 				src={logo}
 				width={30}
@@ -66,7 +81,7 @@ export default function SignUp(props) {
 			/>
 			{/* <div className="text-2xl mb-2 text-[#1e0e4b] text-center">Talk Time</div> */}
 			<h2 className="text-3xl font-bold mb-4 text-center text-[#1e0e4b]">
-				SignUp
+				Sign Up
 			</h2>
 			<form onSubmit={handleSubmit} className="flex flex-col gap-3">
 				<div className="block relative">

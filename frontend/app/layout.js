@@ -8,6 +8,7 @@ import { Providers } from "./Provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -41,6 +42,7 @@ export default function RootLayout({ children }) {
           <ThemeToggle />
           <Providers>{children}</Providers>
         </ThemeProvider>
+        <Toaster/>
       </body>
     </html>
   );

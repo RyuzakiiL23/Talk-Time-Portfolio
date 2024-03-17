@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
 	authentificated,
 } from "../../lib/Features/Auth/authSlice";
+import toast from "react-hot-toast";
 
 export default function Login(props) {
 	const [username, setUsername] = useState("");
@@ -42,6 +43,7 @@ export default function Login(props) {
 			}
 		} catch (error) {
 			console.error("Error:", error);
+			toast.error("An error occurred. Please try again later.");
 		}
 	};
 
