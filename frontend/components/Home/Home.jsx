@@ -27,6 +27,7 @@ import Profile from "./Profile";
 import Setting from "./Setting";
 import Contacts from "./Contacts";
 import LogOut from "./LogOut";
+import Mode from "./Mode";
 const me = JSON.parse(localStorage.getItem('chat-user'));
 
 export default function Home() {
