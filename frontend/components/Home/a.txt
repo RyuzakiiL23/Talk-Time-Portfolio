@@ -1,0 +1,134 @@
+import React, { useState } from "react";
+import { CiSearch } from "react-icons/ci";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { BsEmojiSmile } from "react-icons/bs";
+import { IoIosAttach, IoMdSend } from "react-icons/io";
+import { CiImageOn } from "react-icons/ci";
+import { MdOutlineVideoCameraFront } from "react-icons/md";
+import { IoCallOutline } from "react-icons/io5";
+import { HiDotsHorizontal } from "react-icons/hi";
+import { LuUser2 } from "react-icons/lu";
+import {
+  RiMessage3Line,
+  RiSettings2Line,
+  RiMoonLine,
+  RiSunLine,
+  RiGroupLine,
+  RiLoginBoxLine,
+  RiContactsLine,
+} from "react-icons/ri";
+import { GiMagicHat } from "react-icons/gi";
+import Image from "next/image";
+import logo from "../../public/talk_time.png";
+import Conversations from "./Conversations";
+
+const me = JSON.parse(localStorage.getItem("chat-user"));
+
+export default function Home() {
+  const [side, setSide] = useState("message");
+  const [showSidebar, setShowSidebar] = useState(false);
+
+  const handleToggle = () => {
+    setShowSidebar(!showSidebar);
+  };
+
+  return (
+    <div className="flex flex-col w-screen h-screen">
+      {/* Section with toggle button */}
+      <div className="bg-white shadow-lg">
+        <div className="flex items-center justify-between p-4">
+          <div className="flex items-center">
+            <div className="lg:hidden mr-4">
+              {/* Hamburger icon for small and medium screens */}
+              <svg
+                className="w-6 h-6 cursor-pointer"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                onClick={handleToggle}
+              >
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </div>
+            <h2 className="text-xl font-bold">Talk Time</h2>
+          </div>
+        </div>
+      </div>
+
+      {/* Sidebar */}
+      {showSidebar && (
+        <div className="lg:w-1/5 w-70 lg:block bg-gray-200">
+          <div className="flex flex-col items-center justify-between py-4 h-full bg-white">
+            <div>
+              <Image
+                src={logo}
+                width={30}
+                height={30}
+                alt="Picture of the author"
+                className="cursor-pointer"
+              />
+            </div>
+            <div className="w-full text-xl text-gray-500 ">
+              <div
+                onClick={() => {
+                  setSide("profile");
+                  setShowSidebar(false); // Close sidebar after selecting an option
+                }}
+                className="p-4 cursor-pointer hover:text-[#7269EF]"
+              >
+                Profile
+              </div>
+              <div
+                onClick={() => {
+                  setSide("message");
+                  setShowSidebar(false);
+                }}
+                className="p-4 cursor-pointer hover:text-[#7269EF]"
+              >
+                Message
+              </div>
+              <div
+                onClick={() => {
+                  setSide("contact");
+                  setShowSidebar(false);
+                }}
+                className="p-4 cursor-pointer hover:text-[#7269EF]"
+              >
+                Contact
+              </div>
+              <div
+                onClick={() => {
+                  setSide("settings");
+                  setShowSidebar(false);
+                }}
+                className="p-4 cursor-pointer hover:text-[#7269EF]"
+              >
+                Settings
+              </div>
+            </div>
+            <div className="flex flex-col items-center gap-4  text-xl text-gray-500 cursor-pointer">
+              {/* Include Logout component here */}
+              <Avatar className="w-8 h-8 cursor-pointer">
+                <AvatarImage src={me.profilePic} alt={me.username} />
+                <AvatarFallback>{me.username.slice(0, 2)}</AvatarFallback>
+              </Avatar>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="flex flex-1">
+        {/* Main Content */}
+        <div className="w-full">
+          <Conversations />
+        </div>
+      </div>
+    </div>
+  );
+}
