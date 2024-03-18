@@ -27,9 +27,12 @@ import Profile from "./Profile";
 import Setting from "./Setting";
 import Contacts from "./Contacts";
 import LogOut from "./LogOut";
-const me = JSON.parse(localStorage.getItem('chat-user'));
+import { useSelector } from "react-redux";
+
+// const me = JSON.parse(localStorage.getItem('chat-user'));
 
 export default function Home() {
+const me = useSelector((state) => state.auth.value);
 	const [side, setSide] = useState("message");
 
 	return (
