@@ -52,9 +52,10 @@ export default function Contacts() {
 					{conversations.map((item) => (
 						<div
 							key={item._id}
-							className="flex cursor-pointer relative p-2 w-full rounded h-20 items-center ease-in duration-150 hover:text-[#E6EBF5]"
+							className="flex cursor-pointer relative p-2 w-full rounded h-20 items-center"
 						>
-							<div className="mr-2">
+							<div className="mr-2 relative">
+								<div className="h-3 w-3 border rounded-full bg-green-500 absolute z-50"></div>
 								<Avatar className="h-8 w-8">
 									<AvatarImage
 										src={item.profilePic}
