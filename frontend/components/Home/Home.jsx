@@ -55,92 +55,118 @@ export default function Home() {
     setShowSidebar(false);
   };
 
+  if (isSmallScreen) {
+    return (
+      <div className="flex flex-col w-screen h-screen">
+        {/* Section with toggle button */}
+        <div className="bg-white shadow-lg">
+          <div className="flex items-center justify-between p-4">
+            <div className="flex items-center">
+              <div className="lg:hidden mr-4">
+                {/* Hamburger icon for small and medium screens */}
+                <svg
+                  className="w-6 h-6 cursor-pointer"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  onClick={handleToggleSidebar}
+                >
+                  <line x1="3" y1="12" x2="21" y2="12"></line>
+                  <line x1="3" y1="6" x2="21" y2="6"></line>
+                  <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+              </div>
+              <h2 className="text-xl font-bold">
+                <span class="bg-blue-500 text-white p-0.5 rounded-lg">Talk</span>{" "}
+                Time
+              </h2>
+            </div>
+          </div>
+        </div>
+
+        {/* Sidebar */}
+        {showSidebar && (
+          <div className="lg:w-1/5 w-70 lg:block bg-gray-200">
+            <div className="flex flex-col items-center justify-between py-4 h-full bg-white">
+              <div>
+                <Image
+                  src={logo}
+                  width={30}
+                  height={30}
+                  alt="Picture of the author"
+                  className="cursor-pointer"
+                />
+              </div>
+              <div className="w-full text-xl text-gray-500 ">
+                <div
+                  onClick={() => handleSidebarItemClick("profile")}
+                  className="p-4 cursor-pointer hover:text-[#7269EF]"
+                >
+                  Profile
+                </div>
+                <div
+                  onClick={() => handleSidebarItemClick("message")}
+                  className="p-4 cursor-pointer hover:text-[#7269EF]"
+                >
+                  Message
+                </div>
+                <div
+                  onClick={() => handleSidebarItemClick("contact")}
+                  className="p-4 cursor-pointer hover:text-[#7269EF]"
+                >
+                  Contact
+                </div>
+                <div
+                  onClick={() => handleSidebarItemClick("settings")}
+                  className="p-4 cursor-pointer hover:text-[#7269EF]"
+                >
+                  Settings
+                </div>
+              </div>
+              <div className="flex flex-col items-center gap-4  text-xl text-gray-500 cursor-pointer">
+                <LogOut />
+                <Avatar className="w-8 h-8 cursor-pointer">
+                  <AvatarImage src={me.profilePic} alt={me.username} />
+                  <AvatarFallback>{me.username.slice(0, 2)}</AvatarFallback>
+                </Avatar>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="flex flex-1">
+          <div className="w-full">
+            {side === "message" && <Conversations />}
+            {side === "profile" && <Profile />}
+            {side === "settings" && <Setting />}
+            {side === "contact" && <Contacts />}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Large screen layout
   return (
-    <div className="flex flex-col w-screen h-screen">
-      {/* Section with toggle button */}
+    <div className="flex relative flex-col w-screen h-screen">
       <div className="bg-white shadow-lg">
         <div className="flex items-center justify-between p-4">
           <div className="flex items-center">
-            <div className="lg:hidden mr-4">
-              {/* Hamburger icon for small and medium screens */}
-              <svg
-                className="w-6 h-6 cursor-pointer"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                onClick={handleToggleSidebar}
-              >
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-              </svg>
-            </div>
-            <h2 className="text-xl font-bold">Talk Time</h2>
+            <h2 className="text-xl font-bold">
+              <span class="bg-blue-500 text-white p-0.5 rounded-lg">Talk</span>{" "}
+              Time
+            </h2>
           </div>
         </div>
       </div>
 
-      {/* Sidebar */}
-      {(showSidebar || isSmallScreen) && (
-        <div
-          className={`lg:w-1/5 w-70 ${
-            showSidebar || isSmallScreen ? "block" : "hidden"
-          } lg:block bg-gray-200`}
-        >
-          <div className="flex flex-col items-center justify-between py-4 h-full bg-white">
-            <div>
-              <Image
-                src={logo}
-                width={30}
-                height={30}
-                alt="Picture of the author"
-                className="cursor-pointer"
-              />
-            </div>
-            <div className="w-full text-xl text-gray-500 ">
-              <div
-                onClick={() => handleSidebarItemClick("profile")}
-                className="p-4 cursor-pointer hover:text-[#7269EF]"
-              >
-                Profile
-              </div>
-              <div
-                onClick={() => handleSidebarItemClick("message")}
-                className="p-4 cursor-pointer hover:text-[#7269EF]"
-              >
-                Message
-              </div>
-              <div
-                onClick={() => handleSidebarItemClick("contact")}
-                className="p-4 cursor-pointer hover:text-[#7269EF]"
-              >
-                Contact
-              </div>
-              <div
-                onClick={() => handleSidebarItemClick("settings")}
-                className="p-4 cursor-pointer hover:text-[#7269EF]"
-              >
-                Settings
-              </div>
-            </div>
-            <div className="flex flex-col items-center gap-4  text-xl text-gray-500 cursor-pointer">
-              <LogOut />
-              <Avatar className="w-8 h-8 cursor-pointer">
-                <AvatarImage src={me.profilePic} alt={me.username} />
-                <AvatarFallback>{me.username.slice(0, 2)}</AvatarFallback>
-              </Avatar>
-            </div>
-          </div>
-        </div>
-      )}
-
       <div className="flex flex-1">
+        {/* Main Content */}
         <div className="flex relative w-[620px] bg-[#F5F7FB]">
-          {/* Main Content */}
           <div className="flex flex-col items-center justify-between py-4 w-20 h-full bg-white">
             <div>
               <Image
