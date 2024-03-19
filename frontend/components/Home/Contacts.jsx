@@ -48,7 +48,7 @@ export default function Contacts() {
             placeholder="Search messages or users"
           />
         </div>
-        <div className="overflow-auto scrollbar-thumb-slate-700 scrollbar-track-slate-300 scrollbar-thin h-[400px]">
+        <div className="overflow-auto scrollbar-thumb-slate-700 scrollbar-track-slate-300 scrollbar-thin h-[78vh]">
           {conversations.map((item) => (
             <div
               key={item._id}
