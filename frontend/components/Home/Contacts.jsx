@@ -34,45 +34,46 @@ export default function Contacts() {
     getConversations();
   }, []);
 
-  return (
-    <div className="flex flex-col relative w-full border">
-      <div className="mx-4 ">
-        <h2 className="text-xl font-semibold my-4">Contacts</h2>
-        <div className="flex bg-[#E6EBF5] items-center h-10 rounded  ">
-          <div className="p-4 text-xl text-gray-500 ">
-            <CiSearch />
-          </div>
-          <input
-            className="focus:outline-none bg-[#E6EBF5] text-gray-500 text-sm "
-            type="text"
-            placeholder="Search messages or users"
-          />
-        </div>
-        <div className="overflow-auto scrollbar-thumb-slate-700 scrollbar-track-slate-300 scrollbar-thin h-[78vh]">
-          {conversations.map((item) => (
-            <div
-              key={item._id}
-              className="flex cursor-pointer relative p-2 w-full rounded h-20 items-center ease-in duration-150 hover:text-[#E6EBF5]"
-            >
-              <div className="mr-2">
-                <Avatar className="h-8 w-8">
-                  <AvatarImage
-                    src={item.profilePic}
-                    alt={item.username.slice(0, 1)}
-                  />
-                  <AvatarFallback>{item.username.slice(0, 1)}</AvatarFallback>
-                </Avatar>
-              </div>
-              <div>
-                <h4 className="text-sm">{item.fullName}</h4>
-              </div>
-              <div className="absolute text-gray-500 text-xs right-2">
-                <HiDotsVertical />
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+	return (
+		<div className="flex flex-col relative w-full border">
+			<div className="mx-4 ">
+				<h2 className="text-xl font-semibold my-4">Contacts</h2>
+				<div className="flex bg-[#E6EBF5] items-center h-10 rounded  ">
+					<div className="p-4 text-xl text-gray-500 ">
+						<CiSearch />
+					</div>
+					<input
+						className="focus:outline-none bg-[#E6EBF5] text-gray-500 text-sm "
+						type="text"
+						placeholder="Search messages or users"
+					/>
+				</div>
+				<div className="overflow-auto scrollbar-thumb-slate-700 scrollbar-track-slate-300 scrollbar-thin h-[78vh]">
+					{conversations.map((item) => (
+						<div
+							key={item._id}
+							className="flex cursor-pointer relative p-2 w-full rounded h-20 items-center"
+						>
+							<div className="mr-2 relative">
+								<div className="h-3 w-3 border rounded-full bg-green-500 absolute z-50"></div>
+								<Avatar className="h-8 w-8">
+									<AvatarImage
+										src={item.profilePic}
+										alt={item.username.slice(0, 1)}
+									/>
+									<AvatarFallback>{item.username.slice(0, 1)}</AvatarFallback>
+								</Avatar>
+							</div>
+							<div>
+								<h4 className="text-sm">{item.fullName}</h4>
+							</div>
+							<div className="absolute text-gray-500 text-xs right-2">
+								<HiDotsVertical/>
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+		</div>
+	);
 }
