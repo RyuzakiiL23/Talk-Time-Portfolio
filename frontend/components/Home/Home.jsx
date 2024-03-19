@@ -90,8 +90,8 @@ export default function Home() {
 
         {/* Sidebar */}
         {showSidebar && (
-          <div className="lg:w-1/5 w-70 lg:block bg-gray-200">
-            <div className="flex flex-col items-center justify-between py-4 h-full bg-white">
+          <div className="relative lg:w-1/5 w-70 lg:block bg-gray-200">
+            <div className="absolute flex flex-col items-center justify-between py-4 h-[90vh] w-full bg-white z-50">
               <div>
                 <Image
                   src={logo}
@@ -101,7 +101,7 @@ export default function Home() {
                   className="cursor-pointer"
                 />
               </div>
-              <div className="w-full text-xl text-gray-500 ">
+              <div className="flex flex-col items-center w-full text-xl text-gray-500 ">
                 <div
                   onClick={() => handleSidebarItemClick("profile")}
                   className="p-4 cursor-pointer hover:text-[#7269EF]"
