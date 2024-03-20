@@ -24,7 +24,6 @@ export default function Contacts() {
         if (data.error) {
           throw new Error(data.error);
         }
-        console.log(data);
         setConversations(data);
       } catch (error) {
         console.log(error);

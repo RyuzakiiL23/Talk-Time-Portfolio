@@ -4,9 +4,20 @@ import React, { useState, useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
+import { useDispatch, useSelector } from "react-redux";
+import { setMsg, removeMsg } from "@/lib/Features/Conversations/conversationSlice";
+import { setUserData } from "@/lib/Features/UsersData/userDataSlice";
+import { setInterlocuteur } from "@/lib/Features/Interlocuteur/interlocuteurSlice";
+
 export default function Conversations() {
 	const [conversations, setConversations] = useState([]);
-	const token = localStorage.getItem("chat-user");
+	const token = useSelector((state) => state.auth.value);
+
+	const [userId, setUserId] = useState(null);
+	// const [messages, setMessages] = useState([]);
+
+	const dispatch = useDispatch();
+
 
 	useEffect(() => {
 		const getConversations = async () => {
@@ -23,8 +34,8 @@ export default function Conversations() {
 				if (data.error) {
 					throw new Error(data.error);
 				}
-				console.log(data);
 				setConversations(data);
+				dispatch(setUserData(data));
 			} catch (error) {
 				console.log(error);
 			}
@@ -32,6 +43,33 @@ export default function Conversations() {
 
 		getConversations();
 	}, []);
+
+	useEffect(() => {
+		const getMessages = async () => {
+			if (userId === null) {
+				dispatch(removeMsg());
+				return;
+			}
+			try {
+				const res = await fetch(`http://localhost:8080/api/messages/${userId}`, {
+					method: "GET",
+					credentials: "include",
+					headers: {
+						Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+						"Content-Type": "application/json",
+					},
+				});
+				const data = await res.json();
+				if (data.error) {
+					throw new Error(data.error);
+				}
+				dispatch(setMsg(data))
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		getMessages();
+	}, [userId]);
 
 	return (
 		<div className="flex flex-col relative w-full border">
@@ -61,7 +99,8 @@ export default function Conversations() {
 						{conversations.map((item) => (
 							<div
 								key={item._id}
-								className="flex cursor-pointer relative p-2 w-full rounded h-20 items-center ease-in duration-150 hover:bg-[#E6EBF5]"
+								className={`flex cursor-pointer relative p-2 w-full rounded h-20 items-center ease-in duration-150 hover:bg-[#E6EBF5] ${userId === item._id ? 'bg-[#E6EBF5]' : ''}` }
+								onClick={() => {setUserId(item._id);  dispatch(setInterlocuteur(item))}}
 							>
 								<div className="mr-2">
 									<Avatar className="h-8 w-8">
