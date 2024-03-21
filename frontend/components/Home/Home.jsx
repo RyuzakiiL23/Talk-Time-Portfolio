@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { CiSearch } from "react-icons/ci";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
@@ -25,6 +25,7 @@ import { useSelector } from "react-redux";
 import Messages from "./Messages";
 import SendMsg from "./SendMsg";
 
+
 // const me = JSON.parse(localStorage.getItem('chat-user'));
 
 export default function Home() {
@@ -33,6 +34,7 @@ export default function Home() {
 	const [showSidebar, setShowSidebar] = useState(false);
 	const [isSmallScreen, setIsSmallScreen] = useState(false);
 	const interlocuteur = useSelector((state) => state.interlocuteur.value);
+
 
 	useEffect(() => {
 		function handleResize() {
@@ -60,12 +62,12 @@ export default function Home() {
 		return (
 			<div className="flex flex-col w-screen h-screen">
 				{/* Section with toggle button */}
-				<div className="bg-white shadow-lg">
+				{/* <div className="bg-white shadow-lg">
 					<div className="flex items-center justify-between p-4">
 						<div className="flex items-center">
-							<div className="lg:hidden mr-4">
+							<div className="lg:hidden mr-4"> */}
 								{/* Hamburger icon for small and medium screens */}
-								<svg
+								{/* <svg
 									className="w-6 h-6 cursor-pointer"
 									xmlns="http://www.w3.org/2000/svg"
 									viewBox="0 0 24 24"
@@ -82,14 +84,14 @@ export default function Home() {
 								</svg>
 							</div>
 							<h2 className="text-xl font-bold">
-								<span class="bg-blue-500 text-white p-0.5 rounded-lg">
+								<span className="bg-blue-500 text-white p-0.5 rounded-lg">
 									Talk
 								</span>{" "}
 								Time
 							</h2>
 						</div>
 					</div>
-				</div>
+				</div> */}
 
 				{/* Sidebar */}
 				{showSidebar && (
@@ -156,16 +158,16 @@ export default function Home() {
 	// Large screen layout
 	return (
 		<div className="flex relative flex-col w-screen h-screen">
-			<div className="bg-white shadow-lg">
+			{/* <div className="bg-white shadow-lg">
 				<div className="flex items-center justify-between p-4">
 					<div className="flex items-center">
 						<h2 className="text-xl font-bold">
-							<span class="bg-blue-500 text-white p-0.5 rounded-lg">Talk</span>{" "}
+							<span className="bg-blue-500 text-white p-0.5 rounded-lg">Talk</span>{" "}
 							Time
 						</h2>
 					</div>
 				</div>
-			</div>
+			</div> */}
 
 			<div className="flex flex-1">
 				{/* Main Content */}
@@ -276,15 +278,18 @@ export default function Home() {
 						)}
 					</div>
 					{/* Messages Panel */}
-					<div className="">
+					<div className="relative">
 						{interlocuteur ? (
-							<Messages />
+							<div>
+								<Messages />
+                {/* <div ref={bottomOfPanel}></div> */}
+							</div>
 						) : (
 							<h2>Chose A conversation to start chat</h2>
 						)}
 					</div>
 					<div>
-            <SendMsg/>
+						<SendMsg />
 					</div>
 				</div>
 			</div>

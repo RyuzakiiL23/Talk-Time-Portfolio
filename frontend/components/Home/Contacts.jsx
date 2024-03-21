@@ -4,34 +4,36 @@ import React, { useState, useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { HiDotsVertical } from "react-icons/hi";
+import { useSocketContext } from "../../context/SocketContext";
 
 export default function Contacts() {
-  const [conversations, setConversations] = useState([]);
-  const token = localStorage.getItem("chat-user");
+	const [conversations, setConversations] = useState([]);
+	const token = localStorage.getItem("chat-user");
+	const { onlineUsers } = useSocketContext();
 
-  useEffect(() => {
-    const getConversations = async () => {
-      try {
-        const res = await fetch("http://localhost:8080/api/users", {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
-            "Content-Type": "application/json",
-          },
-        });
-        const data = await res.json();
-        if (data.error) {
-          throw new Error(data.error);
-        }
-        setConversations(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+	useEffect(() => {
+		const getConversations = async () => {
+			try {
+				const res = await fetch("http://localhost:8080/api/users", {
+					method: "GET",
+					credentials: "include",
+					headers: {
+						Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+						"Content-Type": "application/json",
+					},
+				});
+				const data = await res.json();
+				if (data.error) {
+					throw new Error(data.error);
+				}
+				setConversations(data);
+			} catch (error) {
+				console.log(error);
+			}
+		};
 
-    getConversations();
-  }, []);
+		getConversations();
+	}, []);
 
 	return (
 		<div className="flex flex-col relative w-full border">
@@ -54,7 +56,7 @@ export default function Contacts() {
 							className="flex cursor-pointer relative p-2 w-full rounded h-20 items-center"
 						>
 							<div className="mr-2 relative">
-								<div className="h-3 w-3 border rounded-full bg-green-500 absolute z-50"></div>
+								<div className={onlineUsers.includes(item._id) ? ' h-3 w-3 border rounded-full bg-green-500 absolute z-50' : ''}></div>
 								<Avatar className="h-8 w-8">
 									<AvatarImage
 										src={item.profilePic}
@@ -67,7 +69,7 @@ export default function Contacts() {
 								<h4 className="text-sm">{item.fullName}</h4>
 							</div>
 							<div className="absolute text-gray-500 text-xs right-2">
-								<HiDotsVertical/>
+								<HiDotsVertical />
 							</div>
 						</div>
 					))}

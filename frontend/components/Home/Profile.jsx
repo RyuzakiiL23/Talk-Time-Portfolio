@@ -3,7 +3,6 @@ import { HiDotsVertical } from "react-icons/hi";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 
 const data = JSON.parse(localStorage.getItem('chat-user'));
-console.log(data);
 
 export default function Profile() {
 	return (

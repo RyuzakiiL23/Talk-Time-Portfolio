@@ -1,16 +1,23 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 
 export default function Messages() {
 	const msg = useSelector((state) => state.conversation.value);
 	const connectedUser = useSelector((state) => state.auth.value);
-  const interlocuteur = useSelector((state) => state.interlocuteur.value);
-  
+	const interlocuteur = useSelector((state) => state.interlocuteur.value);
+	const bottomOfPanel = useRef(null);
+
+	useEffect(() => {
+		if (bottomOfPanel.current) {
+			bottomOfPanel.current.scrollIntoView();
+		}
+	}, [interlocuteur, msg]);
+
 	return (
 		<>
-			<div>
+			<div className="overflow-auto scrollbar-thumb-slate-700 scrollbar-track-slate-300 scrollbar-thin h-[560px]">
 				{Array.isArray(msg) && msg.length > 0 ? (
 					<div>
 						{msg.map((item, index) => (
@@ -47,14 +54,17 @@ export default function Messages() {
 											</div>
 
 											<div className="chat-bubble bg-[#6D23A6] text-white">
-                      {item.message}
+												{item.message}
 											</div>
-											<div className="chat-footer opacity-50">{item.createdAt}</div>
+											<div className="chat-footer opacity-50">
+												{item.createdAt}
+											</div>
 										</div>
 									</div>
 								)}
 							</div>
 						))}
+						<div ref={bottomOfPanel}></div>
 					</div>
 				) : (
 					<h1>start chating with {interlocuteur.username}</h1>
