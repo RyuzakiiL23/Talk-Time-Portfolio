@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { CiSearch } from "react-icons/ci";
+import Searchinput from "./Search";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -86,14 +86,7 @@ export default function Conversations() {
 			<div className="mx-4 ">
 				<h2 className="text-xl font-semibold my-4">Chats</h2>
 				<div className="flex bg-[#E6EBF5] items-center h-10 rounded  ">
-					<div className="p-4 text-xl text-gray-500 ">
-						<CiSearch />
-					</div>
-					<input
-						className="focus:outline-none bg-[#E6EBF5] text-gray-500 text-sm "
-						type="text"
-						placeholder="Search messages or users"
-					/>
+					<Searchinput />
 				</div>
 				<div className="flex justify-around my-4">
 					{conversations.slice(0, 4).map((item) => (
