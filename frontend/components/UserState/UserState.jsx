@@ -6,6 +6,7 @@ import Login from "../Login/Login";
 import SignUp from "../SignUp/SignUp";
 import Home from "../Home/Home";
 import { useState } from "react";
+import { Toaster } from "react-hot-toast";
 
 export default function UserState() {
 	const auth = useSelector((state) => state.auth.value);
@@ -16,14 +17,15 @@ export default function UserState() {
 		setLog(val);
 	};
 	return (
-		<div className="h-screen flex justify-center items-center">
-			{auth ? (
-				<Home />
-			) : log ? (
-				<Login changeLog={changeLog} />
-			) : (
-				<SignUp changeLog={changeLog} />
-			)}
-		</div>
-	);
+    <div className="h-screen flex justify-center items-center">
+      {auth ? (
+        <Home />
+      ) : log ? (
+        <Login changeLog={changeLog} />
+      ) : (
+        <SignUp changeLog={changeLog} />
+      )}
+      <Toaster />
+    </div>
+  );
 }

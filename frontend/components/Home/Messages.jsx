@@ -2,12 +2,14 @@
 
 import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
+import { extractTime } from "../utils/extractTime";
 
 export default function Messages() {
 	const msg = useSelector((state) => state.conversation.value);
 	const connectedUser = useSelector((state) => state.auth.value);
 	const interlocuteur = useSelector((state) => state.interlocuteur.value);
 	const bottomOfPanel = useRef(null);
+	
 
 	useEffect(() => {
 		if (bottomOfPanel.current) {
@@ -37,7 +39,7 @@ export default function Messages() {
 												{item.message}
 											</div>
 											<div className="chat-footer opacity-50">
-												{item.createdAt}
+												{extractTime(item.createdAt)}
 											</div>
 										</div>
 									</div>
@@ -57,7 +59,7 @@ export default function Messages() {
 												{item.message}
 											</div>
 											<div className="chat-footer opacity-50">
-												{item.createdAt}
+												{extractTime(item.createdAt)}
 											</div>
 										</div>
 									</div>
