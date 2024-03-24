@@ -7,6 +7,7 @@ import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 
 import { useDispatch, useSelector } from "react-redux";
 import { authentificated } from "../../lib/Features/Auth/authSlice";
+import toast from "react-hot-toast";
 
 export default function SignUp(props) {
 	const [showPass, setShowPass] = useState("password");
@@ -48,7 +49,7 @@ export default function SignUp(props) {
 			localStorage.setItem("chat-user", JSON.stringify(data));
 			dispatch(authentificated());
 		} catch (error) {
-			console.log(`error: ${error} `);
+			toast.error(error.message);
 		}
 	};
 

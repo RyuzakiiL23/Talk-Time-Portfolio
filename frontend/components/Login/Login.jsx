@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
 	authentificated,
 } from "../../lib/Features/Auth/authSlice";
+import toast from "react-hot-toast";
 
 export default function Login(props) {
 	const [username, setUsername] = useState("");
@@ -34,14 +35,15 @@ export default function Login(props) {
 			});
 			const data = await response.json();
 			if (data.error) {
-				setErrorMessage(data.error);
+				// setErrorMessage(data.error);
+				throw new Error(data.error);
 			} else {
 				console.log(data)
 				localStorage.setItem("chat-user", JSON.stringify(data));
 				dispatch(authentificated());
 			}
 		} catch (error) {
-			console.error("Error:", error);
+			 toast.error(error.message);
 		}
 	};
 
