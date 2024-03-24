@@ -17,7 +17,8 @@ import useListenMessages from "@/hooks/useListenMessages";
 
 export default function Conversations() {
 	const [conversations, setConversations] = useState([]);
-	const token = useSelector((state) => state.auth.value);
+	//const token = useSelector((state) => state.auth.value);
+	const token = localStorage.getItem("chat-user");
 
 	const [userId, setUserId] = useState(null);
 	// const [messages, setMessages] = useState([]);

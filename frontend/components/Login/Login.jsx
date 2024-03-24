@@ -45,9 +45,10 @@ export default function Login(props) {
 		} catch (error) {
 			 toast.error(error.message);
 		}
+		window.location.reload();
 	};
 
-	const authentification = useSelector((state) => state.auth.value);
+	//const authentification = useSelector((state) => state.auth.value);
 	const dispatch = useDispatch();
 
 	return (

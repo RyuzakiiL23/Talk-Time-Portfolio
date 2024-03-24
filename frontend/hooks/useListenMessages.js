@@ -16,7 +16,7 @@ const useListenMessages = () => {
 			// newMessage.shouldShake = true;
 			// const sound = new Audio(notificationSound);
 			// sound.play();
-			msg ? dispatch(setMsg([...msg, newMessage])) : dispatch(setMsg([newMessage]));
+			msg && msg.length > 0 ? dispatch(setMsg([...msg, newMessage])) : dispatch(setMsg([newMessage]));
 			// dispatch(setSendMsg());
 		});
 

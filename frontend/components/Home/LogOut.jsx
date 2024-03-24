@@ -26,8 +26,10 @@ export default function LogOut() {
 		} catch (error) {
 			toast.error(error.message);
 		}
+		window.location.reload();
 	};
-	const authentification = useSelector((state) => state.auth.value);
+	//const authentification = useSelector((state) => state.auth.value);
+	const authentification = localStorage.getItem("chat-user");
 	const dispatch = useDispatch();
 
 	return (
