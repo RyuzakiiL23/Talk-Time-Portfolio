@@ -41,11 +41,11 @@ export default function Login(props) {
 				console.log(data)
 				localStorage.setItem("chat-user", JSON.stringify(data));
 				dispatch(authentificated());
+				window.location.reload();
 			}
 		} catch (error) {
 			 toast.error(error.message);
 		}
-		window.location.reload();
 	};
 
 	//const authentification = useSelector((state) => state.auth.value);

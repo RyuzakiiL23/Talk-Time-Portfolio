@@ -56,6 +56,7 @@ export default function SendMsg() {
             placeholder="Enter Message ..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && sendMsg()}
           />
         </div>
         <div className="flex items-center gap-4">
