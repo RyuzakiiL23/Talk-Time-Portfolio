@@ -11,3 +11,24 @@ export const getUsers = async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 };
+
+export const updateUser = async (req, res) => {
+    try {
+        const { fullName, email, bio } = req.body;
+        const userId = req.user._id;
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { fullName, email, bio },
+            { new: true }
+        );
+        console.log("Updated user: ", updatedUser);
+        if (!updatedUser) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        updatedUser.save();
+        res.status(200).json({ message: "User updated successfully" });
+    } catch (error) {
+        console.log("Error in updateUser controller: ", error.message);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
