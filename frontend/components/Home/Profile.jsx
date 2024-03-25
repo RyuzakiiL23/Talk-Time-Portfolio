@@ -1,11 +1,14 @@
 import React from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
+import { useSelector } from "react-redux";
 
-const data = JSON.parse(localStorage.getItem('chat-user'));
-console.log(data);
+//const data = JSON.parse(localStorage.getItem('chat-user'));
+
 
 export default function Profile() {
+	const data = useSelector((state) => state.auth.value);
+
 	return (
 		<div className="flex flex-col relative w-full border">
 			<div className="flex justify-between items-center mx-4 ">
