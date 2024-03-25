@@ -22,6 +22,8 @@ export default function Login(props) {
 		e.preventDefault();
 
 		try {
+			// handle error for if username does not exists
+
 			const response = await fetch("http://localhost:8080/api/auth/login", {
 				method: "POST",
 				credentials: 'include',
@@ -36,7 +38,12 @@ export default function Login(props) {
 			const data = await response.json();
 			if (data.error) {
 				// setErrorMessage(data.error);
-				throw new Error(data.error);
+				if (data.error === 'Internal Server Error') {
+					throw new Error('The username you entered does not exist.');
+				} else {
+					throw new Error(data.error);
+				}
+				
 			} else {
 				console.log(data)
 				localStorage.setItem("chat-user", JSON.stringify(data));
