@@ -25,153 +25,24 @@ import { useSelector } from "react-redux";
 import Messages from "./Messages";
 import SendMsg from "./SendMsg";
 
-
-const me = JSON.parse(localStorage.getItem('chat-user'));
+const me = JSON.parse(localStorage.getItem("chat-user"));
 
 export default function Home() {
 	//const me = useSelector((state) => state.auth.value);
 	const [side, setSide] = useState("message");
 	const [showSidebar, setShowSidebar] = useState(false);
-	const [isSmallScreen, setIsSmallScreen] = useState(false);
 	const interlocuteur = useSelector((state) => state.interlocuteur.value);
-
-
-	useEffect(() => {
-		function handleResize() {
-			setIsSmallScreen(window.innerWidth <= 768);
-		}
-
-		window.addEventListener("resize", handleResize);
-		handleResize(); // Initial check on mount
-
-		return () => {
-			window.removeEventListener("resize", handleResize);
-		};
-	}, []);
-
-	const handleToggleSidebar = () => {
-		setShowSidebar(!showSidebar);
-	};
 
 	const handleSidebarItemClick = (selectedSide) => {
 		setSide(selectedSide);
 		setShowSidebar(false);
 	};
 
-	if (isSmallScreen) {
-		return (
-			<div className="flex flex-col w-screen h-screen">
-				{/* Section with toggle button */}
-				{/* <div className="bg-white shadow-lg">
-					<div className="flex items-center justify-between p-4">
-						<div className="flex items-center">
-							<div className="lg:hidden mr-4"> */}
-								{/* Hamburger icon for small and medium screens */}
-								{/* <svg
-									className="w-6 h-6 cursor-pointer"
-									xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									onClick={handleToggleSidebar}
-								>
-									<line x1="3" y1="12" x2="21" y2="12"></line>
-									<line x1="3" y1="6" x2="21" y2="6"></line>
-									<line x1="3" y1="18" x2="21" y2="18"></line>
-								</svg>
-							</div>
-							<h2 className="text-xl font-bold">
-								<span className="bg-blue-500 text-white p-0.5 rounded-lg">
-									Talk
-								</span>{" "}
-								Time
-							</h2>
-						</div>
-					</div>
-				</div> */}
-
-				{/* Sidebar */}
-				{showSidebar && (
-					<div className="relative lg:w-1/5 w-70 lg:block bg-gray-200">
-						<div className="absolute flex flex-col items-center justify-between py-4 h-[90vh] w-full bg-white z-50">
-							<div>
-								<Image
-									src={logo}
-									width={30}
-									height={30}
-									alt="Picture of the author"
-									className="cursor-pointer"
-								/>
-							</div>
-							<div className="flex flex-col items-center w-full text-xl text-gray-500 ">
-								<div
-									onClick={() => handleSidebarItemClick("profile")}
-									className="p-4 cursor-pointer hover:text-[#7269EF]"
-								>
-									Profile
-								</div>
-								<div
-									onClick={() => handleSidebarItemClick("message")}
-									className="p-4 cursor-pointer hover:text-[#7269EF]"
-								>
-									Message
-								</div>
-								<div
-									onClick={() => handleSidebarItemClick("contact")}
-									className="p-4 cursor-pointer hover:text-[#7269EF]"
-								>
-									Contact
-								</div>
-								<div
-									onClick={() => handleSidebarItemClick("settings")}
-									className="p-4 cursor-pointer hover:text-[#7269EF]"
-								>
-									Settings
-								</div>
-							</div>
-							<div className="flex flex-col items-center gap-4  text-xl text-gray-500 cursor-pointer">
-								<LogOut />
-								<Avatar className="w-8 h-8 cursor-pointer">
-									<AvatarImage src={me.profilePic} alt={me.username} />
-									<AvatarFallback>{me.username.slice(0, 2)}</AvatarFallback>
-								</Avatar>
-							</div>
-						</div>
-					</div>
-				)}
-
-				<div className="flex flex-1">
-					<div className="w-full">
-						{side === "message" && <Conversations />}
-						{side === "profile" && <Profile />}
-						{side === "settings" && <Setting />}
-						{side === "contact" && <Contacts />}
-					</div>
-				</div>
-			</div>
-		);
-	}
-
-	// Large screen layout
 	return (
 		<div className="flex relative flex-col w-screen h-screen">
-			{/* <div className="bg-white shadow-lg">
-				<div className="flex items-center justify-between p-4">
-					<div className="flex items-center">
-						<h2 className="text-xl font-bold">
-							<span className="bg-blue-500 text-white p-0.5 rounded-lg">Talk</span>{" "}
-							Time
-						</h2>
-					</div>
-				</div>
-			</div> */}
-
-			<div className="flex flex-1">
+			<div className="flex">
 				{/* Main Content */}
-				<div className="flex relative w-[620px] bg-[#F5F7FB]">
+				<div className="flex relative bg-[#F5F7FB]">
 					<div className="flex flex-col items-center justify-between py-4 w-20 h-full bg-white">
 						<div>
 							<Image
@@ -233,25 +104,27 @@ export default function Home() {
 						</div>
 					</div>
 					{/* Main Content */}
-					<div className={`${side !== "message" ? "hidden" : ""} w-full`}>
-						<Conversations />
-					</div>
-					<div className={`${side !== "profile" ? "hidden" : ""} w-full`}>
-						<Profile />
-					</div>
-					<div className={`${side !== "settings" ? "hidden" : ""} w-full`}>
-						<Setting />
-					</div>
-					<div className={`${side !== "contact" ? "hidden" : ""} w-full`}>
-						<Contacts />
+					<div className="h-screen relative">
+						<div className={`${side !== "message" ? "hidden" : ""} w-full`}>
+							<Conversations />
+						</div>
+						<div className={`${side !== "profile" ? "hidden" : ""} w-full`}>
+							<Profile />
+						</div>
+						<div className={`${side !== "settings" ? "hidden" : ""} w-full`}>
+							<Setting />
+						</div>
+						<div className={`${side !== "contact" ? "hidden" : ""} w-full`}>
+							<Contacts />
+						</div>
 					</div>
 				</div>
 				{/* Right Panel */}
-				<div className="relative w-full bg-white border solid">
-					<div className="h-20 border-b px-8">
-						{interlocuteur ? (
-							<div className="flex relative p-2 px w-full rounded h-20 items-center ease-in duration-150 ">
-								<div className="mr-2">
+				{interlocuteur ? (
+					<div className="relative w-full h-screen bg-white border solid">
+						<div className="flex justify-center h-[10%] border-b px-8">
+							<div className="flex my-auto p-2 px w-full rounded items-center justify-between ease-in duration-150 ">
+								<div className="mr-2 gap-2 flex items-center">
 									<Avatar className="h-8 w-8">
 										<AvatarImage
 											src={interlocuteur.profilePic}
@@ -261,11 +134,9 @@ export default function Home() {
 											{interlocuteur.username.slice(0, 2)}
 										</AvatarFallback>
 									</Avatar>
-								</div>
-								<div>
 									<h4 className="text-sm">{interlocuteur.username}</h4>
 								</div>
-								<div className="flex absolute text-gray-500 text-xl gap-4 right-2">
+								<div className="flex text-gray-500 text-xl gap-4 ">
 									<CiSearch className="cursor-pointer font-extrabold ease-in duration-150 hover:text-[#7269EF]" />
 									<IoCallOutline className="cursor-pointer font-extrabold ease-in duration-150 hover:text-[#7269EF]" />
 									<MdOutlineVideoCameraFront className="cursor-pointer font-extrabold ease-in duration-150 hover:text-[#7269EF]" />
@@ -273,25 +144,27 @@ export default function Home() {
 									<HiDotsHorizontal className="cursor-pointer font-extrabold ease-in duration-150 hover:text-[#7269EF]" />
 								</div>
 							</div>
-						) : (
-							<div></div>
-						)}
-					</div>
-					{/* Messages Panel */}
-					<div className="relative">
-						{interlocuteur ? (
-							<div>
+						</div>
+						{/* Messages Panel */}
+						<div className="h-[80%] relative">
+							<div className="h-full relative">
 								<Messages />
-                {/* <div ref={bottomOfPanel}></div> */}
 							</div>
-						) : (
-							<h2>Chose A conversation to start chat</h2>
-						)}
+						</div>
+						<div className="">
+							<SendMsg />
+						</div>
 					</div>
-					<div>
-						<SendMsg />
+				) : (
+					<div className="flex flex-grow flex-col items-center justify-center p-4">
+						<div className="text-lg font-semibold text-center mb-2">
+							Hello, {me.username} 👋
+						</div>
+						<div className="text-sm text-center">
+							Choose a conversation to start chatting.
+						</div>
 					</div>
-				</div>
+				)}
 			</div>
 		</div>
 	);

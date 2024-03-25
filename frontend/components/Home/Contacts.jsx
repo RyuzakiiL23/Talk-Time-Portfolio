@@ -30,7 +30,7 @@ export default function Contacts() {
 					method: "GET",
 					credentials: "include",
 					headers: {
-						Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+						Authorization: `Bearer ${token}`,
 						"Content-Type": "application/json",
 					},
 				});
@@ -60,7 +60,7 @@ export default function Contacts() {
 						method: "GET",
 						credentials: "include",
 						headers: {
-							Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+							Authorization: `Bearer ${token}`,
 							"Content-Type": "application/json",
 						},
 					}
@@ -78,50 +78,54 @@ export default function Contacts() {
 	}, [userId]);
 
 	return (
-    <div className="flex flex-col relative w-full border">
-      <div className="mx-4 ">
-        <h2 className="text-xl font-semibold my-4">Contacts</h2>
-        <div className="flex bg-[#E6EBF5] items-center h-10 rounded  ">
-          <Searchinput />
-        </div>
-        <div className="overflow-auto scrollbar-thumb-slate-700 scrollbar-track-slate-300 scrollbar-thin h-[78vh]">
-          {conversations.map((item) => (
-            <div
-              key={item._id}
-              className={`flex cursor-pointer relative p-2 w-full rounded h-20 items-center ${
-                userId === item._id ? "bg-[#E6EBF5]" : ""
-              }`}
-              onClick={() => {
-                setUserId(item._id);
-                dispatch(setInterlocuteur(item));
-              }}
-            >
-              <div className="mr-2 relative">
-                <div
-                  className={
-                    onlineUsers.includes(item._id)
-                      ? " h-3 w-3 border rounded-full bg-green-500 absolute z-50"
-                      : ""
-                  }
-                ></div>
-                <Avatar className="h-8 w-8">
-                  <AvatarImage
-                    src={item.profilePic}
-                    alt={item.username.slice(0, 1)}
-                  />
-                  <AvatarFallback>{item.username.slice(0, 1)}</AvatarFallback>
-                </Avatar>
-              </div>
-              <div>
-                <h4 className="text-sm">{item.fullName}</h4>
-              </div>
-              <div className="absolute text-gray-500 text-xs right-2">
-                <HiDotsVertical />
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+		<div className="flex flex-col h-screen relative w-96 border">
+			<div className="mx-4 h-[100%]  relative">
+				<div className="h-1/5 flex flex-col space-between">
+					<h2 className="text-xl font-semibold my-4">Contacts</h2>
+					<div className="flex bg-[#E6EBF5] items-center h-10 rounded  ">
+						<Searchinput />
+					</div>
+				</div>
+				<div className="h-4/5">
+					<div className="overflow-auto scrollbar-thumb-slate-700 scrollbar-track-slate-300 scrollbar-thin h-full">
+						{conversations.map((item) => (
+							<div
+								key={item._id}
+								className={`flex cursor-pointer relative p-2 w-full rounded h-20 items-center ${
+									userId === item._id ? "bg-[#E6EBF5]" : ""
+								}`}
+								onClick={() => {
+									setUserId(item._id);
+									dispatch(setInterlocuteur(item));
+								}}
+							>
+								<div className="mr-2 relative">
+									<div
+										className={
+											onlineUsers.includes(item._id)
+												? " h-3 w-3 border rounded-full bg-green-500 absolute z-50"
+												: ""
+										}
+									></div>
+									<Avatar className="h-8 w-8">
+										<AvatarImage
+											src={item.profilePic}
+											alt={item.username.slice(0, 1)}
+										/>
+										<AvatarFallback>{item.username.slice(0, 1)}</AvatarFallback>
+									</Avatar>
+								</div>
+								<div>
+									<h4 className="text-sm">{item.fullName}</h4>
+								</div>
+								<div className="absolute text-gray-500 text-xs right-2">
+									<HiDotsVertical />
+								</div>
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }

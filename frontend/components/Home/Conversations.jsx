@@ -14,7 +14,6 @@ import { setInterlocuteur } from "@/lib/Features/Interlocuteur/interlocuteurSlic
 import { useSocketContext } from "../../context/SocketContext";
 import useListenMessages from "@/hooks/useListenMessages";
 
-
 export default function Conversations() {
 	const [conversations, setConversations] = useState([]);
 	//const token = useSelector((state) => state.auth.value);
@@ -34,7 +33,7 @@ export default function Conversations() {
 					method: "GET",
 					credentials: "include",
 					headers: {
-						Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+						Authorization: `Bearer ${token}`,
 						"Content-Type": "application/json",
 					},
 				});
@@ -65,7 +64,7 @@ export default function Conversations() {
 						method: "GET",
 						credentials: "include",
 						headers: {
-							Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+							Authorization: `Bearer ${token}`,
 							"Content-Type": "application/json",
 						},
 					}
@@ -83,27 +82,30 @@ export default function Conversations() {
 	}, [userId]);
 
 	return (
-		<div className="flex flex-col relative w-full border">
-			<div className="mx-4 ">
-				<h2 className="text-xl font-semibold my-4">Chats</h2>
-				<div className="flex bg-[#E6EBF5] items-center h-10 rounded  ">
-					<Searchinput />
+		<div className="flex flex-col h-screen relative w-96 border">
+			<div className="mx-4 h-[100%] relative">
+				<div className="h-[33%] flex flex-col justify-between">
+					<h2 className="text-xl font-semibold my-4 ">Chats</h2>
+					<div className="flex bg-[#E6EBF5] items-center h-10 rounded  ">
+						<Searchinput />
+					</div>
+					<h3 className="text-md">Recent</h3>
+					<div className="flex justify-around bg-white z-50 my-4">
+						{conversations.slice(0, 4).map((item) => (
+							<Avatar key={item._id} className="cursor-pointer">
+								<AvatarImage src={item.profilePic} alt="@shadcn" />
+								<AvatarFallback>{item.username.slice(0, 1)}</AvatarFallback>
+							</Avatar>
+						))}
+					</div>
+					<h3 className="text-md z-50 bg-white">Conversations</h3>
 				</div>
-				<div className="flex justify-around my-4">
-					{conversations.slice(0, 4).map((item) => (
-						<Avatar key={item._id} className="cursor-pointer">
-							<AvatarImage src={item.profilePic} alt="@shadcn" />
-							<AvatarFallback>{item.username.slice(0, 1)}</AvatarFallback>
-						</Avatar>
-					))}
-				</div>
-				<div className="">
-					<h3 className="text-md mt-4">Recent</h3>
-					<div className="overflow-auto scrollbar-thumb-slate-700 scrollbar-track-slate-300 scrollbar-thin h-[67vh]">
+				<div className="h-[67%]">
+					<div className="overflow-auto scrollbar-thumb-slate-700 scrollbar-track-slate-300 scrollbar-thin max-h-full">
 						{conversations.map((item) => (
 							<div
 								key={item._id}
-								className={`flex cursor-pointer relative p-2 w-full rounded h-20 items-center ease-in duration-150 hover:bg-[#E6EBF5] ${
+								className={`flex cursor-pointer relative px-2 w-full rounded h-20 items-center ease-in duration-150 hover:bg-[#E6EBF5] ${
 									userId === item._id ? "bg-[#E6EBF5]" : ""
 								}`}
 								onClick={() => {
@@ -112,7 +114,13 @@ export default function Conversations() {
 								}}
 							>
 								<div className="mr-2 relative">
-								<div className={onlineUsers.includes(item._id) ? ' h-3 w-3 border rounded-full bg-green-500 absolute z-50' : ''}></div>
+									<div
+										className={
+											onlineUsers.includes(item._id)
+												? " h-3 w-3 border rounded-full bg-green-500 absolute z-50"
+												: ""
+										}
+									></div>
 									<Avatar className="h-8 w-8">
 										<AvatarImage
 											src={item.profilePic}

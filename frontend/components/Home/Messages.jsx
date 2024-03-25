@@ -19,9 +19,9 @@ export default function Messages() {
 
 	return (
 		<>
-			<div className="overflow-auto scrollbar-thumb-slate-700 scrollbar-track-slate-300 scrollbar-thin h-[560px]">
+			<div className="overflow-auto scrollbar-thumb-slate-700 scrollbar-track-slate-300 scrollbar-thin h-full">
 				{Array.isArray(msg) && msg.length > 0 ? (
-					<div>
+					<div className="m-2">
 						{msg.map((item, index) => (
 							<div key={index} className="relatve">
 								{item.senderId !== connectedUser._id ? (

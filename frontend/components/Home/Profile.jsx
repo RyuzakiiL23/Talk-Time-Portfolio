@@ -10,7 +10,7 @@ export default function Profile() {
 	const data = useSelector((state) => state.auth.value);
 
 	return (
-		<div className="flex flex-col relative w-full border">
+		<div className="flex flex-col relative w-96 border">
 			<div className="flex justify-between items-center mx-4 ">
 				<h2 className="text-xl font-semibold my-4">My Profile</h2>
         <HiDotsVertical className="text-gray-500 text-xl cursor-pointer"/>
