@@ -97,9 +97,14 @@ export default function Home() {
 						</div>
 						<div className="flex flex-col items-center gap-4  text-xl text-gray-500 cursor-pointer">
 							<LogOut />
-							<Avatar className="w-8 h-8 cursor-pointer">
+							{/* <Avatar className="w-8 h-8 cursor-pointer">
 								<AvatarImage src={me.profilePic} alt={me.username} />
 								<AvatarFallback>{me.username.slice(0, 2)}</AvatarFallback>
+							</Avatar> */}
+
+							<Avatar className="w-8 h-8 cursor-pointer">
+    							{me && <AvatarImage src={me.profilePic} alt={me.username} />}
+    							{me && <AvatarFallback>{me.username.slice(0, 2)}</AvatarFallback>}
 							</Avatar>
 						</div>
 					</div>
@@ -158,7 +163,8 @@ export default function Home() {
 				) : (
 					<div className="flex flex-grow flex-col items-center justify-center p-4">
 						<div className="text-lg font-semibold text-center mb-2">
-							Hello, {me.username} 👋
+							{/* Hello, {me.username} 👋 */}
+							Hello, {me ? me.username : 'Guest'} 👋
 						</div>
 						<div className="text-sm text-center">
 							Choose a conversation to start chatting.
