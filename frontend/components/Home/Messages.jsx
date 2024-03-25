@@ -69,7 +69,7 @@ export default function Messages() {
 						<div ref={bottomOfPanel}></div>
 					</div>
 				) : (
-					<h1>start chating with {interlocuteur.username}</h1>
+					<h1 className="ml-1">start chatting with {interlocuteur.username}</h1>
 				)}
 			</div>
 		</>
