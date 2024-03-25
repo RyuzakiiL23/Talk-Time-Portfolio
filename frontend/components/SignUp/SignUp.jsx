@@ -35,6 +35,16 @@ export default function SignUp(props) {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		try {
+
+			// handle error if password and verifyPassword are not the same
+			if (inputs.password !== inputs.verifyPassword) {
+				throw new Error("Passwords do not match!");
+			}
+
+			// handle error if password is less than 6 characters
+            if (inputs.password.length < 6) {
+                throw new Error("Password must be at least 6 characters long!");
+            }
 			const res = await fetch("http://localhost:8080/api/auth/signup", {
 				method: "POST",
 				credentials:'include',
@@ -58,6 +68,7 @@ export default function SignUp(props) {
 
 	return (
 		<div className="w-[340px] relative flex flex-col p-4 rounded-md text-black bg-white">
+			<div style={{ height: '30px' }} /> {/* Add space above the logo */}
 			<Image
 				src={logo}
 				width={30}
