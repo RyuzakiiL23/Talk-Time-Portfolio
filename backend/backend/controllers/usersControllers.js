@@ -26,7 +26,7 @@ export const updateUser = async (req, res) => {
             return res.status(404).json({ error: "User not found" });
         }
         updatedUser.save();
-        res.status(200).json({ message: "User updated successfully" });
+        res.status(200).json({ message: "User updated successfully", user: updatedUser});
     } catch (error) {
         console.log("Error in updateUser controller: ", error.message);
         res.status(500).json({ error: "Internal server error" });

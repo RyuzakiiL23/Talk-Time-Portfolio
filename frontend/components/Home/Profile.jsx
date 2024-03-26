@@ -2,12 +2,43 @@ import React from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 //const data = JSON.parse(localStorage.getItem('chat-user'));
 
 export default function Profile(props) {
 	const data = useSelector((state) => state.auth.value);
 	const isMobile = props.heightRef;
+	const [dataProf, setDataProf] = useState([]);
+
+	useEffect(() => {
+		const updateProfile = async () => {
+			try {
+				const res = await fetch("http://localhost:8080/api/users/update", {
+					method: "PUT",
+					credentials: "include",
+					headers: { 
+						Authorization: `Bearer ${token}`,
+              			"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						fullName,
+						email,
+						bio,
+					}),
+				});
+				const data = await res.json();
+				console.log(data);
+				if (data.error) {
+					throw new Error(data.error);
+				}
+			} catch (error) {
+					toast.error(error.message);
+			}
+			}
+		updateProfile();
+	},[]);
 
 	return (
 		// <div className="flex flex-col relative w-96 border">
