@@ -64,7 +64,7 @@ export default function Login(props) {
 			<h2 className="text-3xl font-bold mb-4 text-center text-[#1e0e4b]">
 				Login
 			</h2>
-			<form onSubmit={handleSubmit} className="flex flex-col gap-3">
+			<form onSubmit={handleSubmit} className="flex flex-col gap-3" data-testid="login-form">
 				<div className="block relative">
 					<label htmlFor="username" className="block text-gray-600 cursor-text text-sm leading-[140%] font-normal mb-2">
 						Username

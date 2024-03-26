@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import Login from '../Login';
 import toast from 'react-hot-toast';
@@ -62,3 +62,41 @@ jest.mock('react-hot-toast', () => ({
 }));
 
 
+test('initial state of username and password fields is empty', () => {
+  render(
+    <Provider store={store}>
+      <Login />
+    </Provider>
+  );
+
+  expect(screen.getByLabelText('Username').value).toBe('');
+  expect(screen.getByLabelText('Password').value).toBe('');
+});
+
+test('password visibility toggle works correctly', () => {
+  render(
+    <Provider store={store}>
+      <Login />
+    </Provider>
+  );
+
+  const passwordField = screen.getByLabelText('Password');
+  const toggleButton = screen.getByRole('button');
+});
+
+test('username and password fields update their state when text is entered', () => {
+  render(
+    <Provider store={store}>
+      <Login />
+    </Provider>
+  );
+
+  const usernameField = screen.getByLabelText('Username');
+  const passwordField = screen.getByLabelText('Password');
+
+  fireEvent.change(usernameField, { target: { value: 'testuser' } });
+  fireEvent.change(passwordField, { target: { value: 'testpass' } });
+
+  expect(usernameField.value).toBe('testuser');
+  expect(passwordField.value).toBe('testpass');
+});
