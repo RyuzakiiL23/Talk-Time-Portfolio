@@ -9,7 +9,6 @@ export default function Messages() {
 	const connectedUser = useSelector((state) => state.auth.value);
 	const interlocuteur = useSelector((state) => state.interlocuteur.value);
 	const bottomOfPanel = useRef(null);
-	
 
 	useEffect(() => {
 		if (bottomOfPanel.current) {
@@ -69,7 +68,13 @@ export default function Messages() {
 						<div ref={bottomOfPanel}></div>
 					</div>
 				) : (
-					<h1 className="ml-1">start chatting with {interlocuteur.username}</h1>
+					<div
+						className={`flex h-full flex-grow items-center justify-center p-4`}
+					>
+						<div className="text-lg font-semibold text-center mb-2">
+							Type something to start chating with <p className="text-[#7269EF]">{interlocuteur.username} </p> 🚀 
+						</div>
+					</div>
 				)}
 			</div>
 		</>
