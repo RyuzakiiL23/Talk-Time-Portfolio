@@ -75,9 +75,10 @@ To run the application, follow these steps:
    git clone https://github.com/yourusername/talk-time.git
    cd talk-time
 
-2. Navigate to the frontend and backend directories and install dependencies
+2. Navigate to the frontend and backend directories and install dependencies<br>
    cd frontend
    npm install
+   <br>
    cd backend
    npm install
 
@@ -85,12 +86,12 @@ To run the application, follow these steps:
 
    - Create a `.env` file in the backend directory and configure your application settings, including MongoDB URI and JWT secret key.
 
-4. Start the server and client
+4. Start the server and client<br>
    cd backend
    npm start server
-
-cd frontend
-npm start dev
+   <br>
+   cd frontend
+   npm start dev
 
 5. Access the application in your browser at `http://localhost:3000`
 
