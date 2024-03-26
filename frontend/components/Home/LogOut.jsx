@@ -35,7 +35,7 @@ export default function LogOut() {
 	return (
 		<RiLogoutBoxLine
 			onClick={logout}
-			className="font-extrabold ease-in duration-150 hover:text-[#7269EF]"
+			className="font-extrabold ease-in duration-150 hover:text-[#7269EF]" data-testid="logout-button"
 		/>
 	);
 }
