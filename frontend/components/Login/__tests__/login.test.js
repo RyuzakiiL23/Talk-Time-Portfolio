@@ -1,10 +1,11 @@
-
 import React from 'react';
 import { Provider } from 'react-redux';
-import { render } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import Login from '../Login';
+import toast from 'react-hot-toast';
 
+// mock the next/image to avoid errros
 jest.mock('next/image', () => ({
   __esModule: true,
   default: (props) => {
@@ -22,6 +23,7 @@ const store = mockStore({
   },
 });
 
+// test if the app is rendered without crashing
 test('renders Login component without crashing', () => {
   render(
     <Provider store={store}>
@@ -29,3 +31,34 @@ test('renders Login component without crashing', () => {
     </Provider>
   );
 });
+
+// test for username
+test('allows the user to type into the username field', () => {
+  const { getByLabelText } = render(
+    <Provider store={store}>
+      <Login />
+    </Provider>
+  );
+  const usernameField = getByLabelText('Username');
+  fireEvent.change(usernameField, { target: { value: 'testuser' } });
+  expect(usernameField.value).toBe('testuser');
+});
+
+// test for password
+test('allows the user to type into the password field', () => {
+  const { getByLabelText } = render(
+    <Provider store={store}>
+      <Login />
+    </Provider>
+  );
+  const passwordField = getByLabelText('Password');
+  fireEvent.change(passwordField, { target: { value: 'testpassword' } });
+  expect(passwordField.value).toBe('testpassword');
+});
+
+// mocks react-hot -toast error
+jest.mock('react-hot-toast', () => ({
+  error: jest.fn(),
+}));
+
+

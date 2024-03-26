@@ -66,7 +66,7 @@ export default function Login(props) {
 			</h2>
 			<form onSubmit={handleSubmit} className="flex flex-col gap-3">
 				<div className="block relative">
-					<label className="block text-gray-600 cursor-text text-sm leading-[140%] font-normal mb-2">
+					<label htmlFor="username" className="block text-gray-600 cursor-text text-sm leading-[140%] font-normal mb-2">
 						Username
 					</label>
 					<input
@@ -79,7 +79,7 @@ export default function Login(props) {
 					/>
 				</div>
 				<div className="block relative">
-					<label className="block text-gray-600 cursor-text text-sm leading-[140%] font-normal mb-2">
+					<label htmlFor="password" className="block text-gray-600 cursor-text text-sm leading-[140%] font-normal mb-2">
 						Password
 					</label>
 					<input
