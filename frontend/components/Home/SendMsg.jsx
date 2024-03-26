@@ -91,7 +91,7 @@ export default function SendMsg() {
 							<BsEmojiSmile className="cursor-pointer text-[#7269EF] h-5 w-5" />
 						</div>
 						{emojiPickerVisible && (
-							<div ref={emojiPickerRef} style={{ position: "absolute", bottom: "30px", right: "-20px" }}>
+							<div ref={emojiPickerRef} style={{ position: "absolute", bottom: "30px", right: "-120px" }}>
 								<EmojiPicker onEmojiClick={onEmojiClick} />
 							</div>
 						)}
