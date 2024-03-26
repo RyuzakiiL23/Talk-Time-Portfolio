@@ -1,18 +1,18 @@
-"use client";
-
 import React, { useState, useEffect } from "react";
 import Searchinput from "./Search";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
-	setMsg,
-	removeMsg,
+  setMsg,
+  removeMsg,
 } from "@/lib/Features/Conversations/conversationSlice";
 import { setUserData } from "@/lib/Features/UsersData/userDataSlice";
 import { setInterlocuteur } from "@/lib/Features/Interlocuteur/interlocuteurSlice";
 import { useSocketContext } from "../../context/SocketContext";
 import useListenMessages from "@/hooks/useListenMessages";
+import { extractTime } from "../utils/extractTime";
+
 
 export default function Conversations(props) {
 	const [conversations, setConversations] = useState([]);
@@ -21,38 +21,94 @@ export default function Conversations(props) {
 	const isMobile = props.heightRef
 	const setGoBack = props.gob
 	const setMsgUp = props.msgsUp;
+  const [userId, setUserId] = useState(null);
+  const { onlineUsers, socket } = useSocketContext();
+  const dispatch = useDispatch();
+  const msg = useSelector((state) => state.conversation.value);
 
-	const [userId, setUserId] = useState(null);
-	// const [messages, setMessages] = useState([]);
-	const { onlineUsers } = useSocketContext();
 
-	const dispatch = useDispatch();
-	useListenMessages();
+  useListenMessages(); // Use the custom hook
 
-	useEffect(() => {
-		const getConversations = async () => {
-			try {
-				const res = await fetch("http://localhost:8080/api/users", {
-					method: "GET",
-					credentials: "include",
-					headers: {
-						Authorization: `Bearer ${token}`,
-						"Content-Type": "application/json",
-					},
-				});
-				const data = await res.json();
-				if (data.error) {
-					throw new Error(data.error);
-				}
-				setConversations(data);
-				dispatch(setUserData(data));
-			} catch (error) {
-				console.log(error);
-			}
-		};
+  useEffect(() => {
+    const getConversations = async () => {
+      try {
+        const res = await fetch("http://localhost:8080/api/users", {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await res.json();
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        // Here we update the conversation items with last message and its timestamp
+        const conversationsWithMessages = await Promise.all(
+          data.map(async (item) => {
+            const messageRes = await fetch(
+              `http://localhost:8080/api/messages/${item._id}`,
+              {
+                method: "GET",
+                credentials: "include",
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+            const messageData = await messageRes.json();
+            if (!messageData.error && messageData.length > 0) {
+              item.lastMessage = messageData[messageData.length - 1].message;
+              item.lastMessageTime =
+                messageData[messageData.length - 1].createdAt;
+            } else {
+              item.lastMessage = "No messages";
+              item.lastMessageTime = null;
+            }
+            return item;
+          })
+        );
+        setConversations(conversationsWithMessages);
+        dispatch(setUserData(conversationsWithMessages));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getConversations();
+  }, []);
 
-		getConversations();
-	}, []);
+  useEffect(() => {
+    const getMessages = async () => {
+      if (userId === null) {
+        dispatch(removeMsg());
+        return;
+      }
+      try {
+        const res = await fetch(
+          `http://localhost:8080/api/messages/${userId}`,
+          {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const data = await res.json();
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        dispatch(setMsg(data));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getMessages();
+  }, [userId]);
+
 
 	useEffect(() => {
 		const getMessages = async () => {
@@ -94,18 +150,37 @@ export default function Conversations(props) {
 					</div>
 					<h3 className="text-md">Recent</h3>
 					<div className="flex justify-around bg-white z-50 my-4">
-						{conversations.slice(0, 4).map((item) => (
-							<Avatar key={item._id} className="cursor-pointer">
-								<AvatarImage src={item.profilePic} alt="@shadcn" />
-								<AvatarFallback>{item.username.slice(0, 1)}</AvatarFallback>
-							</Avatar>
-						))}
-					</div>
+            {conversations
+              .filter((item) => item.lastMessage !== "No messages")
+              .sort(
+                (a, b) =>
+                  new Date(b.lastMessageTime) - new Date(a.lastMessageTime)
+              )
+              .slice(0, 4)
+              .map((item) => (
+                <div className="flex flex-grow flex-col items-center justify-center">
+                  <Avatar key={item._id} className="cursor-pointer">
+                    <AvatarImage
+                      src={item.profilePic}
+                      alt="@shadcn"
+                      onClick={() => {
+                        setUserId(item._id);
+                        dispatch(setInterlocuteur(item));
+                      }}
+                    />
+                    <AvatarFallback>{item.username.slice(0, 1)}</AvatarFallback>
+                  </Avatar>
+                  <p className="text-sm">{item.username}</p>
+                </div>
+              ))}
+          </div>
 					<h3 className="text-md z-50 bg-white">Conversations</h3>
 				</div>
 				<div className="h-[67%]">
 					<div className="overflow-auto scrollbar-thumb-slate-700 scrollbar-track-slate-300 scrollbar-thin max-h-full">
-						{conversations.map((item) => (
+          {conversations
+              .filter((item) => item.lastMessage !== "No messages")
+              .map((item) => (
 							<div
 								key={item._id}
 								className={`flex cursor-pointer relative px-2 w-full rounded h-20 items-center ease-in duration-150 hover:bg-[#E6EBF5] ${
@@ -136,18 +211,19 @@ export default function Conversations(props) {
 								</div>
 								<div>
 									<h4 className="text-sm">{item.username}</h4>
-									<p className="text-gray-500 text-xs">
-										hey! there I'm available
-									</p>
+									<p className="text-gray-500 text-xs">{item.lastMessage}</p>
 								</div>
 								<div className="absolute text-gray-500 text-xs right-2">
-									<p>02:50 PM</p>
-								</div>
-							</div>
-						))}
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+                    {item.lastMessageTime ? (
+                      <p>{extractTime(item.lastMessageTime)}</p>
+                    ) : null}
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
+

@@ -18,20 +18,20 @@ router.post("/logout", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
-	  const user = await User.findOne({ username });
-	  const isMatch = await bcrypt.compare(password, user.password);
-	  
-    // if (!user) {
-    //   return res.status(400).json({ error: "Invalid username!!" });
-    // }
+    const user = await User.findOne({ username });
     // const isMatch = await bcrypt.compare(password, user.password);
-    // if (!isMatch) {
-    //   return res.status(400).json({ error: "Invalid password!!" });
-    // }
 
-    if (!user || !isMatch) {
-      return res.status(400).json({ error: "Invalid credentials" }); // If the user doesn't exist or the password is incorrect, return an error message
+    if (!user) {
+      return res.status(400).json({ error: "Invalid credentials" });
     }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ error: "Invalid credentials" });
+    }
+
+    // if (!user || !isMatch) {
+    //   return res.status(400).json({ error: "Invalid credentials" }); // If the user doesn't exist or the password is incorrect, return an error message
+    // }
 
     generateToken(user._id, res);
     res.status(200).json({

@@ -37,12 +37,13 @@ export default function Login(props) {
 			if (data.error) {
 				// setErrorMessage(data.error);
 				throw new Error(data.error);
-			} else {
+				// toast.error(error.message);
+			}
 				console.log(data)
 				localStorage.setItem("chat-user", JSON.stringify(data));
 				dispatch(authentificated());
 				window.location.reload();
-			}
+			
 		} catch (error) {
 			 toast.error(error.message);
 		}

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { notAuthentificated } from "../../lib/Features/Auth/authSlice";
 import { RiLogoutBoxLine } from "react-icons/ri";
 // import Cookies from 'universal-cookie';
+import toast from "react-hot-toast";
 
 
 export default function LogOut() {
