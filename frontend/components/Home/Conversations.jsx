@@ -14,10 +14,13 @@ import { setInterlocuteur } from "@/lib/Features/Interlocuteur/interlocuteurSlic
 import { useSocketContext } from "../../context/SocketContext";
 import useListenMessages from "@/hooks/useListenMessages";
 
-export default function Conversations() {
+export default function Conversations(props) {
 	const [conversations, setConversations] = useState([]);
 	//const token = useSelector((state) => state.auth.value);
 	const token = localStorage.getItem("chat-user");
+	const isMobile = props.heightRef
+	const setGoBack = props.gob
+	const setMsgUp = props.msgsUp;
 
 	const [userId, setUserId] = useState(null);
 	// const [messages, setMessages] = useState([]);
@@ -82,8 +85,8 @@ export default function Conversations() {
 	}, [userId]);
 
 	return (
-		<div className="flex flex-col h-screen relative w-96 border">
-			<div className="mx-4 h-[100%] relative">
+		<div className={`flex flex-col h-screen relative ${isMobile ? 'w-screen' : 'w-96'} border`}>
+			<div className={`mx-4 ${isMobile ? 'h-[93%]' : 'h-[100%]'} relative`}>
 				<div className="h-[33%] flex flex-col justify-between">
 					<h2 className="text-xl font-semibold my-4 ">Chats</h2>
 					<div className="flex bg-[#E6EBF5] items-center h-10 rounded  ">
@@ -110,6 +113,8 @@ export default function Conversations() {
 								}`}
 								onClick={() => {
 									setUserId(item._id);
+									setGoBack(true);
+									setMsgUp(false);
 									dispatch(setInterlocuteur(item));
 								}}
 							>

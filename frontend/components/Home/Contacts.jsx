@@ -15,12 +15,15 @@ import { setInterlocuteur } from "@/lib/Features/Interlocuteur/interlocuteurSlic
 
 import useListenMessages from "@/hooks/useListenMessages";
 
-export default function Contacts() {
+export default function Contacts(props) {
 	const [conversations, setConversations] = useState([]);
 	const token = localStorage.getItem("chat-user");
 	const { onlineUsers } = useSocketContext();
 	const [userId, setUserId] = useState(null);
 	const dispatch = useDispatch();
+	const isMobile = props.heightRef;
+	const setGoBack = props.gob;
+	const setMsgUp = props.msgsUp;
 	useListenMessages();
 
 	useEffect(() => {
@@ -78,8 +81,12 @@ export default function Contacts() {
 	}, [userId]);
 
 	return (
-		<div className="flex flex-col h-screen relative w-96 border">
-			<div className="mx-4 h-[100%]  relative">
+		<div
+			className={`flex flex-col h-screen relative ${
+				isMobile ? "w-screen" : "w-96"
+			} border`}
+		>
+			<div className={`mx-4 ${isMobile ? "h-[93%]" : "h-[100%]"} relative`}>
 				<div className="h-1/5 flex flex-col space-between">
 					<h2 className="text-xl font-semibold my-4">Contacts</h2>
 					<div className="flex bg-[#E6EBF5] items-center h-10 rounded  ">
@@ -97,6 +104,8 @@ export default function Contacts() {
 								onClick={() => {
 									setUserId(item._id);
 									dispatch(setInterlocuteur(item));
+									setGoBack(true);
+									setMsgUp(false);
 								}}
 							>
 								<div className="mr-2 relative">
