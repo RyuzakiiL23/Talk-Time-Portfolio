@@ -17,7 +17,7 @@ import Image from "next/image";
 import logo from "../../public/talk_time.png";
 import Conversations from "./Conversations";
 import Profile from "./Profile";
-import Setting from "./Setting";
+// import Setting from "./Setting";
 import Contacts from "./Contacts";
 import LogOut from "./LogOut";
 import { useSelector } from "react-redux";
@@ -111,7 +111,7 @@ export default function Home() {
 									} cursor-pointer font-extrabold ease-in duration-150 hover:text-[#7269EF]`}
 								/>
 							</div>
-							<div
+							{/* <div
 								onClick={() => handleSidebarItemClick("settings")}
 								className="p-4 text-xl text-gray-500 "
 							>
@@ -120,7 +120,7 @@ export default function Home() {
 										side === "settings" ? "text-[#7269EF]" : ""
 									} font-extrabold ease-in duration-150 hover:text-[#7269EF]`}
 								/>
-							</div>
+							</div> */}
 						</div>
 						<div className="flex flex-col items-center gap-4  text-xl text-gray-500 cursor-pointer">
 							<LogOut />
@@ -142,9 +142,9 @@ export default function Home() {
 						<div className={`${side !== "profile" ? "hidden" : ""} w-full`}>
 							<Profile heightRef={isMobile} />
 						</div>
-						<div className={`${side !== "settings" ? "hidden" : ""} w-full`}>
+						{/* <div className={`${side !== "settings" ? "hidden" : ""} w-full`}>
 							<Setting heightRef={isMobile} />
-						</div>
+						</div> */}
 						<div className={`${side !== "contact" ? "hidden" : ""} w-full`}>
 							<Contacts
 								heightRef={isMobile}
@@ -226,7 +226,7 @@ export default function Home() {
 				<div
 					className={`flex ${
 						!isMobile ? "hidden" : ""
-					} items-center justify-around py-4 w-full h-14 border-t bg-white`}
+					} items-center justify-between p-4 w-full h-14 border-t bg-white`}
 				>
 					<div>
 						<Image
@@ -237,46 +237,48 @@ export default function Home() {
 							className="cursor-pointer"
 						/>
 					</div>
-					<div
-						onClick={() => {
-							handleSidebarItemClick("profile");
-							setGoBack(false);
-						}}
-						className="p-4 text-xl text-gray-500 "
-					>
-						<LuUser2
-							className={` ${
-								side === "profile" ? "text-[#7269EF]" : ""
-							} cursor-pointer font-extrabold ease-in duration-150 hover:text-[#7269EF]`}
-						/>
+					<div className="flex items-center">
+						<div
+							onClick={() => {
+								handleSidebarItemClick("profile");
+								setGoBack(false);
+							}}
+							className="p-4 text-xl text-gray-500 "
+						>
+							<LuUser2
+								className={` ${
+									side === "profile" ? "text-[#7269EF]" : ""
+								} cursor-pointer font-extrabold ease-in duration-150 hover:text-[#7269EF]`}
+							/>
+						</div>
+						<div
+							onClick={() => {
+								handleSidebarItemClick("message");
+								setGoBack(false);
+							}}
+							className="p-4 text-xl text-gray-500 "
+						>
+							<RiMessage3Line
+								className={` ${
+									side === "message" ? "text-[#7269EF]" : ""
+								} cursor-pointer font-extrabold ease-in duration-150 hover:text-[#7269EF]`}
+							/>
+						</div>
+						<div
+							onClick={() => {
+								handleSidebarItemClick("contact");
+								setGoBack(false);
+							}}
+							className="p-4 text-xl text-gray-500 "
+						>
+							<RiContactsLine
+								className={` ${
+									side === "contact" ? "text-[#7269EF]" : ""
+								} cursor-pointer font-extrabold ease-in duration-150 hover:text-[#7269EF]`}
+							/>
+						</div>
 					</div>
-					<div
-						onClick={() => {
-							handleSidebarItemClick("message");
-							setGoBack(false);
-						}}
-						className="p-4 text-xl text-gray-500 "
-					>
-						<RiMessage3Line
-							className={` ${
-								side === "message" ? "text-[#7269EF]" : ""
-							} cursor-pointer font-extrabold ease-in duration-150 hover:text-[#7269EF]`}
-						/>
-					</div>
-					<div
-						onClick={() => {
-							handleSidebarItemClick("contact");
-							setGoBack(false);
-						}}
-						className="p-4 text-xl text-gray-500 "
-					>
-						<RiContactsLine
-							className={` ${
-								side === "contact" ? "text-[#7269EF]" : ""
-							} cursor-pointer font-extrabold ease-in duration-150 hover:text-[#7269EF]`}
-						/>
-					</div>
-					<div
+					{/* <div
 						onClick={() => {
 							handleSidebarItemClick("settings");
 							setGoBack(false);
@@ -288,14 +290,16 @@ export default function Home() {
 								side === "settings" ? "text-[#7269EF]" : ""
 							} font-extrabold ease-in duration-150 hover:text-[#7269EF]`}
 						/>
+					</div> */}
+					<div className="flex justify-center gap-2 items-center">
+						<div className=" text-xl text-gray-500 cursor-pointer">
+							<LogOut />
+						</div>
+						<Avatar className="w-8 h-8 cursor-pointer">
+							<AvatarImage src={me.profilePic} alt={me.username} />
+							<AvatarFallback>{me.username.slice(0, 2)}</AvatarFallback>
+						</Avatar>
 					</div>
-					<div className=" text-xl text-gray-500 cursor-pointer">
-						<LogOut />
-					</div>
-					<Avatar className="w-8 h-8 cursor-pointer">
-						<AvatarImage src={me.profilePic} alt={me.username} />
-						<AvatarFallback>{me.username.slice(0, 2)}</AvatarFallback>
-					</Avatar>
 				</div>
 				{/* Main Content */}
 			</div>
