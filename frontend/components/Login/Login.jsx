@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import React from 'react';
 import logo from "../../public/talk_time.png";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
@@ -64,9 +65,9 @@ export default function Login(props) {
 			<h2 className="text-3xl font-bold mb-4 text-center text-[#1e0e4b]">
 				Login
 			</h2>
-			<form onSubmit={handleSubmit} className="flex flex-col gap-3">
+			<form onSubmit={handleSubmit} className="flex flex-col gap-3" data-testid="login-form">
 				<div className="block relative">
-					<label className="block text-gray-600 cursor-text text-sm leading-[140%] font-normal mb-2">
+					<label htmlFor="username" className="block text-gray-600 cursor-text text-sm leading-[140%] font-normal mb-2">
 						Username
 					</label>
 					<input
@@ -79,7 +80,7 @@ export default function Login(props) {
 					/>
 				</div>
 				<div className="block relative">
-					<label className="block text-gray-600 cursor-text text-sm leading-[140%] font-normal mb-2">
+					<label htmlFor="password" className="block text-gray-600 cursor-text text-sm leading-[140%] font-normal mb-2">
 						Password
 					</label>
 					<input
