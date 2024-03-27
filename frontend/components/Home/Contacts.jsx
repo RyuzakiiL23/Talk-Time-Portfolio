@@ -138,7 +138,7 @@ export default function Contacts(props) {
                   </Avatar>
                 </div>
                 <div>
-                  <h4 className="text-sm">{item.fullName}</h4>
+                  <h4 className="text-sm">{item.username}</h4>
                 </div>
                 <div className="absolute text-gray-500 text-xs right-2">
                   <HiDotsVertical />

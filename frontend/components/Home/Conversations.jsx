@@ -112,7 +112,7 @@ export default function Conversations(props) {
 
  // to update in realtime
  useEffect(() => {
-  console.log("New messages:", msg);
+  // console.log("New messages:", msg);
 
   // Update conversations based on new messages
   if (msg && msg.length > 0) {

@@ -40,9 +40,9 @@ const Searchinput = ({ handleSearch, contacts }) => {
 
   return (
     <form onSubmit={handleSubmit} className="flex items-center gap-2">
-      <h3 onClick={() => back()}>
+      {/* <h3 onClick={() => back()}>
         <IoIosArrowBack />
-      </h3>
+      </h3> */}
       <button type="submit" className="p-4 text-xl text-gray-500 ">
         <CiSearch />
       </button>
