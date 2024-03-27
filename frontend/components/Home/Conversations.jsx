@@ -105,7 +105,7 @@ export default function Conversations(props) {
 			}
 		};
 		getMessages();
-	}, [userId]);
+	}, [userId, useListenMessages]);
 
 	useEffect(() => {
 		const getMessages = async () => {
@@ -159,8 +159,8 @@ export default function Conversations(props) {
 							)
 							.slice(0, 4)
 							.map((item) => (
-								<div className="flex flex-grow flex-col items-center justify-center">
-									<Avatar key={item._id} className="cursor-pointer">
+								<div key={item._id} className="flex flex-grow flex-col items-center justify-center">
+									<Avatar  className="cursor-pointer">
 										<AvatarImage
 											src={item.profilePic}
 											alt="@shadcn"

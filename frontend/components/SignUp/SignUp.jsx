@@ -6,7 +6,7 @@ import logo from "../../public/talk_time.png";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 
 import { useDispatch, useSelector } from "react-redux";
-import { authentificated } from "../../lib/Features/Auth/authSlice";
+import { authentificated, setAuth } from "../../lib/Features/Auth/authSlice";
 import toast from "react-hot-toast";
 
 export default function SignUp(props) {
@@ -47,7 +47,7 @@ export default function SignUp(props) {
 				throw new Error(data.error);
 			}
 			localStorage.setItem("chat-user", JSON.stringify(data));
-			dispatch(authentificated());
+			dispatch(setAuth(data));
 		} catch (error) {
 			toast.error(error.message);
 		}

@@ -6,11 +6,13 @@ import logo from "../../public/talk_time.png";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import {
-	authentificated,
+	authentificated, setAuth,
 } from "../../lib/Features/Auth/authSlice";
 import toast from "react-hot-toast";
+import useListenMessages from "@/hooks/useListenMessages";
 
 export default function Login(props) {
+	useListenMessages();
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [showPass, setShowPass] = useState("password");
@@ -40,10 +42,9 @@ export default function Login(props) {
 				throw new Error(data.error);
 				// toast.error(error.message);
 			}
-				console.log(data)
 				localStorage.setItem("chat-user", JSON.stringify(data));
-				dispatch(authentificated());
-				window.location.reload();
+				dispatch(setAuth(data));
+				// window.location.reload();
 			
 		} catch (error) {
 			 toast.error(error.message);

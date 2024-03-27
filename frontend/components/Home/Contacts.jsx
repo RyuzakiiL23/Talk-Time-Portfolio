@@ -51,6 +51,10 @@ export default function Contacts(props) {
 	}, []);
 
 	useEffect(() => {
+
+	},[onlineUsers]);
+
+	useEffect(() => {
 		const getMessages = async () => {
 			if (userId === null) {
 				dispatch(removeMsg());

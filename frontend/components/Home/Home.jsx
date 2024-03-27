@@ -25,10 +25,10 @@ import Messages from "./Messages";
 import SendMsg from "./SendMsg";
 import { IoIosArrowBack } from "react-icons/io";
 
-const me = JSON.parse(localStorage.getItem("chat-user"));
+// const me = JSON.parse(localStorage.getItem("chat-user"));
 
 export default function Home() {
-	//const me = useSelector((state) => state.auth.value);
+	const me = useSelector((state) => state.auth.value);
 	const [side, setSide] = useState("message");
 	const [showSidebar, setShowSidebar] = useState(false);
 	const interlocuteur = useSelector((state) => state.interlocuteur.value);
