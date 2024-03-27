@@ -159,20 +159,34 @@ export default function Conversations(props) {
 							)
 							.slice(0, 4)
 							.map((item) => (
-								<div key={item._id} className="flex flex-grow flex-col items-center justify-center">
-									<Avatar  className="cursor-pointer">
-										<AvatarImage
-											src={item.profilePic}
-											alt="@shadcn"
-											onClick={() => {
-												setUserId(item._id);
-												dispatch(setInterlocuteur(item));
-												setGoBack(true);
-												setMsgUp(false);
-											}}
-										/>
-										<AvatarFallback>{item.username.slice(0, 1)}</AvatarFallback>
-									</Avatar>
+								<div
+									key={item._id}
+									className="flex flex-grow flex-col relative items-center justify-center"
+								>
+									<div className="relative">
+										<div
+											className={
+												onlineUsers.includes(item._id)
+													? " h-3 w-3 border rounded-full bg-green-500 absolute z-50 top-0 left-0"
+													: ""
+											}
+										></div>
+										<Avatar className="cursor-pointer">
+											<AvatarImage
+												src={item.profilePic}
+												alt="@shadcn"
+												onClick={() => {
+													setUserId(item._id);
+													dispatch(setInterlocuteur(item));
+													setGoBack(true);
+													setMsgUp(false);
+												}}
+											/>
+											<AvatarFallback>
+												{item.username.slice(0, 1)}
+											</AvatarFallback>
+										</Avatar>
+									</div>
 									<p className="text-sm">{item.username}</p>
 								</div>
 							))}
