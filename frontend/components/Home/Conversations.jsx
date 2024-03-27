@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Searchinput from "./Search";
+import Searchinput from "./SearchConversations";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -25,6 +25,7 @@ export default function Conversations(props) {
   const { onlineUsers, socket } = useSocketContext();
   const dispatch = useDispatch();
   const msg = useSelector((state) => state.conversation.value);
+  const [filteredConversations, setFilteredConversations] = useState([]);
 
 
   useListenMessages(); // Use the custom hook
@@ -72,6 +73,7 @@ export default function Conversations(props) {
         );
         setConversations(conversationsWithMessages);
         dispatch(setUserData(conversationsWithMessages));
+        setFilteredConversations(conversationsWithMessages);
       } catch (error) {
         console.log(error);
       }
@@ -140,16 +142,28 @@ export default function Conversations(props) {
 		getMessages();
 	}, [userId]);
 
+  const handleSearch = (filteredConversations) => {
+    setFilteredConversations(filteredConversations);
+  };
+
 	return (
-		<div className={`flex flex-col h-screen relative ${isMobile ? 'w-screen' : 'w-96'} border`}>
-			<div className={`mx-4 ${isMobile ? 'h-[93%]' : 'h-[100%]'} relative`}>
-				<div className="h-[33%] flex flex-col justify-between">
-					<h2 className="text-xl font-semibold my-4 ">Chats</h2>
-					<div className="flex bg-[#E6EBF5] items-center h-10 rounded  ">
-						<Searchinput />
-					</div>
-					<h3 className="text-md">Recent</h3>
-					<div className="flex justify-around bg-white z-50 my-4">
+    <div
+      className={`flex flex-col h-screen relative ${
+        isMobile ? "w-screen" : "w-96"
+      } border`}
+    >
+      <div className={`mx-4 ${isMobile ? "h-[93%]" : "h-[100%]"} relative`}>
+        <div className="h-[33%] flex flex-col justify-between">
+          <h2 className="text-xl font-semibold my-4 ">Chats</h2>
+          <div className="flex bg-[#E6EBF5] items-center h-10 rounded  ">
+            {/* search input area */}
+            <Searchinput
+              handleSearch={handleSearch}
+              conversations={conversations}
+            />
+          </div>
+          <h3 className="text-md">Recent</h3>
+          <div className="flex justify-around bg-white z-50 my-4">
             {conversations
               .filter((item) => item.lastMessage !== "No messages")
               .sort(
@@ -165,6 +179,8 @@ export default function Conversations(props) {
                       alt="@shadcn"
                       onClick={() => {
                         setUserId(item._id);
+                        setGoBack(true);
+                        setMsgUp(false);
                         dispatch(setInterlocuteur(item));
                       }}
                     />
@@ -174,46 +190,48 @@ export default function Conversations(props) {
                 </div>
               ))}
           </div>
-					<h3 className="text-md z-50 bg-white">Conversations</h3>
-				</div>
-				<div className="h-[67%]">
-					<div className="overflow-auto scrollbar-thumb-slate-700 scrollbar-track-slate-300 scrollbar-thin max-h-full">
-          {conversations
+          <h3 className="text-md z-50 bg-white">Conversations</h3>
+        </div>
+        <div className="h-[67%]">
+          <div className="overflow-auto scrollbar-thumb-slate-700 scrollbar-track-slate-300 scrollbar-thin max-h-full">
+            {filteredConversations
               .filter((item) => item.lastMessage !== "No messages")
               .map((item) => (
-							<div
-								key={item._id}
-								className={`flex cursor-pointer relative px-2 w-full rounded h-20 items-center ease-in duration-150 hover:bg-[#E6EBF5] ${
-									userId === item._id ? "bg-[#E6EBF5]" : ""
-								}`}
-								onClick={() => {
-									setUserId(item._id);
-									setGoBack(true);
-									setMsgUp(false);
-									dispatch(setInterlocuteur(item));
-								}}
-							>
-								<div className="mr-2 relative">
-									<div
-										className={
-											onlineUsers.includes(item._id)
-												? " h-3 w-3 border rounded-full bg-green-500 absolute z-50"
-												: ""
-										}
-									></div>
-									<Avatar className="h-8 w-8">
-										<AvatarImage
-											src={item.profilePic}
-											alt={item.username.slice(0, 1)}
-										/>
-										<AvatarFallback>{item.username.slice(0, 1)}</AvatarFallback>
-									</Avatar>
-								</div>
-								<div>
-									<h4 className="text-sm">{item.username}</h4>
-									<p className="text-gray-500 text-xs">{item.lastMessage}</p>
-								</div>
-								<div className="absolute text-gray-500 text-xs right-2">
+                <div
+                  key={item._id}
+                  className={`flex cursor-pointer relative px-2 w-full rounded h-20 items-center ease-in duration-150 hover:bg-[#E6EBF5] ${
+                    userId === item._id ? "bg-[#E6EBF5]" : ""
+                  }`}
+                  onClick={() => {
+                    setUserId(item._id);
+                    setGoBack(true);
+                    setMsgUp(false);
+                    dispatch(setInterlocuteur(item));
+                  }}
+                >
+                  <div className="mr-2 relative">
+                    <div
+                      className={
+                        onlineUsers.includes(item._id)
+                          ? " h-3 w-3 border rounded-full bg-green-500 absolute z-50"
+                          : ""
+                      }
+                    ></div>
+                    <Avatar className="h-8 w-8">
+                      <AvatarImage
+                        src={item.profilePic}
+                        alt={item.username.slice(0, 1)}
+                      />
+                      <AvatarFallback>
+                        {item.username.slice(0, 1)}
+                      </AvatarFallback>
+                    </Avatar>
+                  </div>
+                  <div>
+                    <h4 className="text-sm">{item.username}</h4>
+                    <p className="text-gray-500 text-xs">{item.lastMessage}</p>
+                  </div>
+                  <div className="absolute text-gray-500 text-xs right-2">
                     {item.lastMessageTime ? (
                       <p>{extractTime(item.lastMessageTime)}</p>
                     ) : null}
