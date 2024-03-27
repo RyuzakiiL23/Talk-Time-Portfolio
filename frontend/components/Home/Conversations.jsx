@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Searchinput from "./Search";
+import Searchinput from "./SearchConversations";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +14,7 @@ import useListenMessages from "@/hooks/useListenMessages";
 import { extractTime } from "../utils/extractTime";
 
 export default function Conversations(props) {
+
 	const [conversations, setConversations] = useState([]);
 	//const token = useSelector((state) => state.auth.value);
 	const token = localStorage.getItem("chat-user");
@@ -24,6 +25,7 @@ export default function Conversations(props) {
 	const { onlineUsers, socket } = useSocketContext();
 	const dispatch = useDispatch();
 	const msg = useSelector((state) => state.conversation.value);
+  const [filteredConversations, setFilteredConversations] = useState([]);
 
 	useListenMessages(); // Use the custom hook
 
@@ -70,6 +72,7 @@ export default function Conversations(props) {
 				);
 				setConversations(conversationsWithMessages);
 				dispatch(setUserData(conversationsWithMessages));
+        setFilteredConversations(conversationsWithMessages);
 			} catch (error) {
 				console.log(error);
 			}
@@ -107,36 +110,42 @@ export default function Conversations(props) {
 		getMessages();
 	}, [userId, useListenMessages]);
 
-	useEffect(() => {
-		const getMessages = async () => {
-			if (userId === null) {
-				dispatch(removeMsg());
-				return;
-			}
-			try {
-				const res = await fetch(
-					`http://localhost:8080/api/messages/${userId}`,
-					{
-						method: "GET",
-						credentials: "include",
-						headers: {
-							Authorization: `Bearer ${token}`,
-							"Content-Type": "application/json",
-						},
-					}
-				);
-				const data = await res.json();
-				if (data.error) {
-					throw new Error(data.error);
-				}
-				dispatch(setMsg(data));
-			} catch (error) {
-				console.log(error);
-			}
-		};
-		getMessages();
-	}, [userId]);
+ // to update in realtime
+ useEffect(() => {
+  console.log("New messages:", msg);
 
+  // Update conversations based on new messages
+  if (msg && msg.length > 0) {
+    // Iterate over each new message
+    msg.forEach((newMessage) => {
+      // Find the corresponding conversation in conversations state
+      const updatedConversations = conversations.map((conversation) => {
+        // If the conversation ID matches the new message's sender or receiver ID
+        if (
+          conversation._id === newMessage.senderId ||
+          conversation._id === newMessage.receiverId
+        ) {
+          // Update lastMessageTime and lastMessage
+          return {
+            ...conversation,
+            lastMessageTime: newMessage.createdAt,
+            lastMessage: newMessage.message,
+          };
+        } else {
+          return conversation;
+        }
+      });
+
+      // Update conversations and FilteredConversation state with the updated conversation
+      setConversations(updatedConversations);
+      setFilteredConversations(updatedConversations);
+    });
+  }
+}, [msg]);
+
+ const handleSearch = (filteredConversations) => {
+  setFilteredConversations(filteredConversations);
+};
 	return (
 		<div
 			className={`flex flex-col h-screen relative ${

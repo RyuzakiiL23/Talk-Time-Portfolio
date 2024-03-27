@@ -48,11 +48,11 @@
   },
   "jest": {
     "moduleNameMapper": {
-      "^@/(.*)$": "/home/sumshi/Talk-Time-Portfolio/frontend/components/ui/avatar.jsx",
-      "\\.(jpg|jpeg|png|gif|webp|svg)$": "/home/sumshi/Talk-Time-Portfolio/frontend/components/Login/__tests__/__mocks__/fileMock.js"
+      "^@/(.*)$": "./components/ui/avatar.jsx",
+      "\\.(jpg|jpeg|png|gif|webp|svg)$": "./components/Login/__tests__/__mocks__/fileMock.js"
     },
     "testPathIgnorePatterns": [
-      "/home/sumshi/Talk-Time-Portfolio/frontend/components/Login/__tests__/__mocks__/"
+      "./components/Login/__tests__/__mocks__/"
     ],
     "testEnvironment": "jsdom"
   }
