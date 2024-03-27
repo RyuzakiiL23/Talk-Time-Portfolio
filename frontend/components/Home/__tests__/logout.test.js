@@ -18,6 +18,11 @@ const store = mockStore({
   },
 });
 
+jest.mock('@/hooks/useListenMessages', () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
 describe('LogOut component', () => {
   beforeEach(() => {
     // Clear local storage before each test

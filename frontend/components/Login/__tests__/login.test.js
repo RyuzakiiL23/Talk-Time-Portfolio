@@ -23,6 +23,11 @@ const store = mockStore({
   },
 });
 
+jest.mock('@/hooks/useListenMessages', () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
 // test if the app is rendered without crashing
 test('renders Login component without crashing', () => {
   render(
