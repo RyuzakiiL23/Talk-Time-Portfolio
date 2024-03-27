@@ -3,6 +3,7 @@ import { CiSearch } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
 import { setInterlocuteur } from "@/lib/Features/Interlocuteur/interlocuteurSlice";
 import toast from "react-hot-toast";
+import { IoIosArrowBack } from "react-icons/io";
 
 const Searchinput = ({ handleSearch, contacts }) => {
   const [search, setSearch] = useState("");
@@ -33,8 +34,15 @@ const Searchinput = ({ handleSearch, contacts }) => {
     handleSearch(filteredcontacts);
   };
 
+  const back = () => {
+    handleSearch(contacts);
+  }
+
   return (
     <form onSubmit={handleSubmit} className="flex items-center gap-2">
+      <h3 onClick={() => back()}>
+        <IoIosArrowBack />
+      </h3>
       <button type="submit" className="p-4 text-xl text-gray-500 ">
         <CiSearch />
       </button>

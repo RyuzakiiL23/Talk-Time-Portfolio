@@ -3,6 +3,7 @@ import { CiSearch } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
 import { setInterlocuteur } from "@/lib/Features/Interlocuteur/interlocuteurSlice";
 import toast from "react-hot-toast";
+import { IoIosArrowBack } from "react-icons/io";
 
 const Searchinput = ({ handleSearch, conversations }) => {
   const [search, setSearch] = useState("");
@@ -11,9 +12,7 @@ const Searchinput = ({ handleSearch, conversations }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!search) return;
-    // if (search.length < 3) {
-    //   return toast.error("Search term must be at least 3 characters long");
-    // }
+    
     const filteredConversations = conversations.filter((c) =>
       c.username.toLowerCase().includes(search.toLowerCase())
     );
@@ -40,10 +39,8 @@ const Searchinput = ({ handleSearch, conversations }) => {
 
   return (
     <form onSubmit={handleSubmit} className="flex items-center gap-2">
-      <h3
-       onClick={() => back()}
-      >
-        a
+      <h3 onClick={() => back()}>
+        <IoIosArrowBack />
       </h3>
       <button type="submit" className="p-4 text-xl text-gray-500 ">
         <CiSearch />
