@@ -13,20 +13,18 @@ import { useSocketContext } from "../../context/SocketContext";
 import useListenMessages from "@/hooks/useListenMessages";
 import { extractTime } from "../utils/extractTime";
 
-
 export default function Conversations(props) {
-	const [conversations, setConversations] = useState([]);
-	//const token = useSelector((state) => state.auth.value);
-	const token = localStorage.getItem("chat-user");
-	const isMobile = props.heightRef
-	const setGoBack = props.gob
-	const setMsgUp = props.msgsUp;
+  const [conversations, setConversations] = useState([]);
+  //const token = useSelector((state) => state.auth.value);
+  const token = localStorage.getItem("chat-user");
+  const isMobile = props.heightRef;
+  const setGoBack = props.gob;
+  const setMsgUp = props.msgsUp;
   const [userId, setUserId] = useState(null);
   const { onlineUsers, socket } = useSocketContext();
   const dispatch = useDispatch();
   const msg = useSelector((state) => state.conversation.value);
   const [filteredConversations, setFilteredConversations] = useState([]);
-
 
   useListenMessages(); // Use the custom hook
 
@@ -81,6 +79,8 @@ export default function Conversations(props) {
     getConversations();
   }, []);
 
+  
+
   useEffect(() => {
     const getMessages = async () => {
       if (userId === null) {
@@ -111,42 +111,47 @@ export default function Conversations(props) {
     getMessages();
   }, [userId]);
 
+ 
 
-	useEffect(() => {
-		const getMessages = async () => {
-			if (userId === null) {
-				dispatch(removeMsg());
-				return;
-			}
-			try {
-				const res = await fetch(
-					`http://localhost:8080/api/messages/${userId}`,
-					{
-						method: "GET",
-						credentials: "include",
-						headers: {
-							Authorization: `Bearer ${token}`,
-							"Content-Type": "application/json",
-						},
-					}
-				);
-				const data = await res.json();
-				if (data.error) {
-					throw new Error(data.error);
-				}
-				dispatch(setMsg(data));
-			} catch (error) {
-				console.log(error);
-			}
-		};
-		getMessages();
-	}, [userId]);
 
-  const handleSearch = (filteredConversations) => {
+  // to update in realtime
+  useEffect(() => {
+    console.log("New messages:", msg);
+
+    // Update conversations based on new messages
+    if (msg && msg.length > 0) {
+      // Iterate over each new message
+      msg.forEach((newMessage) => {
+        // Find the corresponding conversation in conversations state
+        const updatedConversations = conversations.map((conversation) => {
+          // If the conversation ID matches the new message's sender or receiver ID
+          if (
+            conversation._id === newMessage.senderId ||
+            conversation._id === newMessage.receiverId
+          ) {
+            // Update lastMessageTime and lastMessage
+            return {
+              ...conversation,
+              lastMessageTime: newMessage.createdAt,
+              lastMessage: newMessage.message,
+            };
+          } else {
+            return conversation;
+          }
+        });
+
+        // Update conversations and FilteredConversation state with the updated conversation
+        setConversations(updatedConversations);
+        setFilteredConversations(updatedConversations);
+      });
+    }
+  }, [msg]);
+
+   const handleSearch = (filteredConversations) => {
     setFilteredConversations(filteredConversations);
   };
 
-	return (
+  return (
     <div
       className={`flex flex-col h-screen relative ${
         isMobile ? "w-screen" : "w-96"
@@ -196,6 +201,10 @@ export default function Conversations(props) {
           <div className="overflow-auto scrollbar-thumb-slate-700 scrollbar-track-slate-300 scrollbar-thin max-h-full">
             {filteredConversations
               .filter((item) => item.lastMessage !== "No messages")
+              .sort(
+                (a, b) =>
+                  new Date(b.lastMessageTime) - new Date(a.lastMessageTime)
+              )
               .map((item) => (
                 <div
                   key={item._id}
@@ -244,4 +253,3 @@ export default function Conversations(props) {
     </div>
   );
 }
-
