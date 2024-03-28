@@ -12,6 +12,9 @@ import { setInterlocuteur } from "@/lib/Features/Interlocuteur/interlocuteurSlic
 import { useSocketContext } from "../../context/SocketContext";
 import useListenMessages from "@/hooks/useListenMessages";
 import { extractTime } from "../utils/extractTime";
+import {
+	RiContactsLine,
+} from "react-icons/ri";
 
 export default function Conversations(props) {
 

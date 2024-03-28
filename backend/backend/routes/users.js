@@ -6,6 +6,6 @@ import { updateUser } from '../controllers/usersControllers.js';
 const router = express.Router();
 
 router.get('/', protectRoute, getUsers);
-router.put('/update', protectRoute, updateUser);
+router.patch('/update', protectRoute, updateUser);
 
 export default router;

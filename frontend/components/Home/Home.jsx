@@ -363,8 +363,7 @@ export default function Home() {
 					</div>
 					<div>
 						<p className="text-gray-500 text-center text-sm p-4">
-							If several languages coalesce, the grammar of the resulting
-							language is more simple and regular than that of the individual.
+							{interlocuteur.bio}
 						</p>
 					</div>
 				</div>

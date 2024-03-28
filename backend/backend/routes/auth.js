@@ -63,8 +63,9 @@ router.post("/signup", async (req, res) => {
 
     // const boyProfilePic = `https://avatar.iran.liara.run/username?username=${username}&length=1&background=A0D1B4&color=518D68`;
     // const girlProfilePic = `https://avatar.iran.liara.run/username?username=${username}&length=1&background=D7A2FE&color=6d23a6`;
-    const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
-    const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
+    // const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
+    const girlProfilePic = `https://ui-avatars.com/api/?background=D7A2FE&color=6D23A6&name=${username}`;
+    const boyProfilePic = `https://ui-avatars.com/api/?&background=A0D1B4&color=518D68&name=${username}`;
 
     const salt = await bcrypt.genSalt(10);
     const hashPass = await bcrypt.hash(password, salt);
