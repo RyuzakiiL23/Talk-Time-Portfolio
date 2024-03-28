@@ -159,7 +159,10 @@ export default function Conversations(props) {
 				<div className="h-[33%] flex flex-col justify-between">
 					<h2 className="text-xl font-semibold my-4 ">Chats</h2>
 					<div className="flex bg-[#E6EBF5] items-center h-10 rounded  ">
-						<Searchinput />
+						<Searchinput
+						    handleSearch={handleSearch}
+							conversations={conversations}
+						 />
 					</div>
 					<h3 className="text-md">Recent</h3>
 					<div className="flex justify-around bg-white z-50 my-4">

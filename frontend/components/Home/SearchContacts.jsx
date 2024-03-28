@@ -5,7 +5,8 @@ import { setInterlocuteur } from "@/lib/Features/Interlocuteur/interlocuteurSlic
 import toast from "react-hot-toast";
 import { IoIosArrowBack } from "react-icons/io";
 
-const Searchinput = ({ handleSearch, contacts }) => {
+const Searchinput = (props) => {
+  const { handleSearch, contacts } = props;
   const [search, setSearch] = useState("");
   const dispatch = useDispatch();
 
@@ -16,7 +17,7 @@ const Searchinput = ({ handleSearch, contacts }) => {
       return toast.error("Search term must be at least 3 characters long");
     }
     const filteredcontacts = contacts.filter((c) =>
-      c.fullName.toLowerCase().includes(search.toLowerCase())
+      c.username.toLowerCase().includes(search.toLowerCase())
     );
     if (filteredcontacts.length > 0) {
       handleSearch(filteredcontacts);
@@ -29,7 +30,7 @@ const Searchinput = ({ handleSearch, contacts }) => {
   const handleChange = (e) => {
     setSearch(e.target.value);
     const filteredcontacts = contacts.filter((c) =>
-      c.fullName.toLowerCase().includes(e.target.value.toLowerCase())
+      c.username.toLowerCase().includes(e.target.value.toLowerCase())
     );
     handleSearch(filteredcontacts);
   };
@@ -40,9 +41,9 @@ const Searchinput = ({ handleSearch, contacts }) => {
 
   return (
     <form onSubmit={handleSubmit} className="flex items-center gap-2">
-      {/* <h3 onClick={() => back()}>
+      <h3 onClick={() => back()}>
         <IoIosArrowBack />
-      </h3> */}
+      </h3> 
       <button type="submit" className="p-4 text-xl text-gray-500 ">
         <CiSearch />
       </button>

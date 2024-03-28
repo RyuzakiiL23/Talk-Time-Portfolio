@@ -5,7 +5,8 @@ import { setInterlocuteur } from "@/lib/Features/Interlocuteur/interlocuteurSlic
 import toast from "react-hot-toast";
 import { IoIosArrowBack } from "react-icons/io";
 
-const Searchinput = ({ handleSearch, conversations }) => {
+const Searchinput = (props) => {
+  const { handleSearch, conversations } = props;
   const [search, setSearch] = useState("");
   const dispatch = useDispatch();
 

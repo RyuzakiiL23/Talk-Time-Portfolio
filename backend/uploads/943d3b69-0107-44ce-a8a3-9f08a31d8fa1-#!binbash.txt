@@ -1,0 +1,20 @@
+#!/bin/bash
+
+chmod
+sudo
+su change a user
+chown change owner
+chgrp
+id -1 print effective username
+groups print groups 
+whoami
+adduser
+useradd
+addgroup
+
+ The letters rwxXst select file mode bits for the affected users: read (r), write (w), execute (or search for directories) (x), execute/search  only  if  the       file  is a directory or already has execute permission for some user (X), 
+set user or group ID on execution (s), restricted deletion flag or sticky bit (t).
+       Instead of one or more of these letters, you can specify exactly one of the letters ugo: the permissions granted to the user who owns the file (u), the permissions granted to other users who are members of the file's group (g), and the permissions granted to users that are in neither of the two preceding categories (o).
+
+|
+[^[:alpha:]]
