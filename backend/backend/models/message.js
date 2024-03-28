@@ -18,7 +18,7 @@ const messageSchema = new mongoose.Schema(
         // The content of the message
         message: {
             type: String,
-            required: true,
+            //required: true,
         },
         // The file attached to the message (optional)
         file: {

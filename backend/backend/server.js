@@ -51,6 +51,9 @@ const upload = multer({ storage: storage });
 app.use(express.json());
 app.use(cookieParser());
 
+app.use('/uploads', express.static('uploads'));
+
+
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
