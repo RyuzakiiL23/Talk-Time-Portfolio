@@ -15,7 +15,7 @@ export default function SendMsg() {
 	const token = useSelector((state) => state.auth.value);
 	const msg = useSelector((state) => state.conversation.value);
 	const dispatch = useDispatch();
-  const emojiPickerRef = useRef(null);
+	const emojiPickerRef = useRef(null);
 	useListenMessages();
 
 	const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
@@ -26,23 +26,26 @@ export default function SendMsg() {
 
 	useEffect(() => {}, [message]);
 
-  useEffect(() => {
-  const handleClickOutside = (event) => {
-    if (emojiPickerRef.current && !emojiPickerRef.current.contains(event.target)) {
-      setEmojiPickerVisible(false);
-    }
-  };
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (
+				emojiPickerRef.current &&
+				!emojiPickerRef.current.contains(event.target)
+			) {
+				setEmojiPickerVisible(false);
+			}
+		};
 
-  if (emojiPickerVisible) {
-    document.addEventListener('mousedown', handleClickOutside);
-  } else {
-    document.removeEventListener('mousedown', handleClickOutside);
-  }
+		if (emojiPickerVisible) {
+			document.addEventListener("mousedown", handleClickOutside);
+		} else {
+			document.removeEventListener("mousedown", handleClickOutside);
+		}
 
-  return () => {
-    document.removeEventListener('mousedown', handleClickOutside);
-  };
-}, [emojiPickerVisible]);
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, [emojiPickerVisible]);
 
 	const sendMsg = async () => {
 		if (!interlocuteur || !message) return;
@@ -71,6 +74,38 @@ export default function SendMsg() {
 		}
 	};
 
+	const handleUpload = async () => {
+		try {
+			const fileInput = document.getElementById("fileInput");
+			const file = fileInput.files[0];
+
+			if (!file) {
+				console.log("No file selected");
+				return;
+			}
+
+			const formData = new FormData();
+			formData.append("file", file);
+
+			const res = await fetch(`http://localhost:8080/api/upload`, {
+				method: "POST",
+				credentials: "include",
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+				body: formData,
+			});
+
+			if (!res.ok) {
+				throw new Error("Network response was not ok");
+			}
+
+			console.log("File uploaded successfully");
+		} catch (error) {
+			console.error("Error uploading file:", error);
+		}
+	};
+
 	return (
 		<div>
 			<div className="flex items-center space-between bg-white absolute h-20 w-full p-8 border-t bottom-0">
@@ -87,17 +122,30 @@ export default function SendMsg() {
 				<div className="flex items-center gap-4">
 					{/* <BsEmojiSmile className="cursor-pointer text-[#7269EF] h-5 w-5" /> */}
 					<div style={{ position: "relative" }}>
-						<div  onClick={() => setEmojiPickerVisible(!emojiPickerVisible)}>
+						<div onClick={() => setEmojiPickerVisible(!emojiPickerVisible)}>
 							<BsEmojiSmile className="cursor-pointer text-[#7269EF] h-5 w-5" />
 						</div>
 						{emojiPickerVisible && (
-							<div ref={emojiPickerRef} style={{ position: "absolute", bottom: "30px", right: "-120px" }}>
+							<div
+								ref={emojiPickerRef}
+								style={{
+									position: "absolute",
+									bottom: "30px",
+									right: "-120px",
+								}}
+							>
 								<EmojiPicker onEmojiClick={onEmojiClick} />
 							</div>
 						)}
 					</div>
 					<IoIosAttach className="cursor-pointer text-[#7269EF] h-5 w-5" />
-					<CiImageOn className="cursor-pointer text-[#7269EF] h-5 w-5" />
+					<label htmlFor="fileInput">
+						<input type="file" id="fileInput" style={{ display: "none" }} />
+						<CiImageOn
+							onClick={handleUpload}
+							className="cursor-pointer text-[#7269EF] h-5 w-5"
+						/>
+					</label>
 					<button onClick={sendMsg}>
 						<IoMdSend className="cursor-pointer text-white h-8 w-8 p-2 bg-[#7269EF] rounded" />
 					</button>
