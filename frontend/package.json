@@ -46,14 +46,14 @@
     "redux-mock-store": "^1.5.4",
     "tailwindcss": "^3.3.0"
   },
-  "jest": {
-    "moduleNameMapper": {
-      "^@/(.*)$": "./components/ui/avatar.jsx",
-      "\\.(jpg|jpeg|png|gif|webp|svg)$": "./components/Login/__tests__/__mocks__/fileMock.js"
-    },
-    "testPathIgnorePatterns": [
-      "./components/Login/__tests__/__mocks__/"
-    ],
-    "testEnvironment": "jsdom"
-  }
+"jest": {
+  "moduleNameMapper": {
+    "^@/(.*)$": "<rootDir>/components/ui/avatar.jsx",
+    "\\.(jpg|jpeg|png|gif|webp|svg)$": "<rootDir>/components/Login/__tests__/__mocks__/fileMock.js"
+  },
+  "testPathIgnorePatterns": [
+    "<rootDir>/components/Login/__tests__/__mocks__/"
+  ],
+  "testEnvironment": "jsdom"
+}
 }
