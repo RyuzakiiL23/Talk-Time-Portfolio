@@ -74,11 +74,11 @@ router.post("/signup", async (req, res) => {
     }
 
     // Generate profile picture URL based on gender
-    const girlProfilePic = `https://ui-avatars.com/api/?background=D7A2FE&color=6D23A6&name=${username}`;
-    const boyProfilePic = `https://ui-avatars.com/api/?&background=A0D1B4&color=518D68&name=${username}`;
+    // const girlProfilePic = `https://ui-avatars.com/api/?background=D7A2FE&color=6D23A6&name=${username}`;
+    // const boyProfilePic = `https://ui-avatars.com/api/?&background=A0D1B4&color=518D68&name=${username}`;
     // Other profile pictures can be generated: uncomment the lines below and comment the lines above
-    // const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
-    // const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
+    const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
+    const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
 
     const salt = await bcrypt.genSalt(10);
     const hashPass = await bcrypt.hash(password, salt);

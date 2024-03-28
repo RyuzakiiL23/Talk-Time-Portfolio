@@ -173,17 +173,17 @@ export default function SendMsg() {
 							</div>
 						)}
 					</div>
-					<IoIosAttach className="cursor-pointer text-[#7269EF] h-5 w-5" />
 					<input
 						type="file"
 						id="fileInput"
 						style={{ display: "none" }}
 						onChange={handleUpload} // Trigger file upload when file selected
 					/>
-					<CiImageOn
+					<IoIosAttach
 						onClick={() => document.getElementById("fileInput").click()} // Trigger click event on file input
 						className="cursor-pointer text-[#7269EF] h-5 w-5"
 					/>
+					{/* <CiImageOn className="cursor-pointer text-[#7269EF] h-5 w-5" /> */}
 					<button onClick={sendMsg}>
 						<IoMdSend className="cursor-pointer text-white h-8 w-8 p-2 bg-[#7269EF] rounded" />
 					</button>
