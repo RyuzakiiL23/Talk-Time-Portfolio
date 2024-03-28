@@ -23,7 +23,6 @@ export const updateUser = async (req, res) => {
             { fullName, email, bio },
             { new: true }
         );
-        console.log("Updated user: ", updatedUser);
         if (!updatedUser) {
             // If user is not found, return an error
             return res.status(404).json({ error: "User not found" });

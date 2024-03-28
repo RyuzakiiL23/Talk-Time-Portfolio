@@ -89,7 +89,7 @@ export default function Profile(props) {
 				<HiDotsVertical className="text-gray-500 text-xl cursor-pointer" />
 			</div>
 			<div className="flex flex-col items-center border-b pb-4">
-				<div className="">
+				<div className="h-20 w-20">
 					<Avatar key={data._id} className="cursor-pointer">
 						<AvatarImage src={data.profilePic} alt="@shadcn" />
 						<AvatarFallback>{data.username.slice(0, 1)}</AvatarFallback>
