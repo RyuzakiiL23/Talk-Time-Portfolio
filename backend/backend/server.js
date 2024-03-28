@@ -3,8 +3,8 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
-import sharp from 'sharp';
-import fs from 'fs';
+// import sharp from 'sharp';
+// import fs from 'fs';
 
 import authRoutes from './routes/auth.js';
 import messageRoutes from './routes/messages.js';
@@ -26,9 +26,21 @@ const port = process.env.PORT || 5000;
 
 // Multer configuration for handling file uploads
 const storage = multer.diskStorage({
+  /**
+   * Destination folder for uploaded files.
+   * @param {Object} req - The request object.
+   * @param {Object} file - The uploaded file object.
+   * @param {Function} cb - The callback function.
+   */
   destination: function (req, file, cb) {
     cb(null, './uploads/'); // Destination folder for uploaded files
   },
+  /**
+   * Generates a unique filename for the uploaded file.
+   * @param {Object} req - The request object.
+   * @param {Object} file - The uploaded file object.
+   * @param {Function} cb - The callback function.
+   */
   filename: function (req, file, cb) {
     cb(null, uuidv4() + '-' + file.originalname); // Unique filename
   }

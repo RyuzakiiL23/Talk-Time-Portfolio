@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// Define the user schema
 const userSchema = new mongoose.Schema(
 	{
 		fullName: {
@@ -11,17 +12,17 @@ const userSchema = new mongoose.Schema(
 			required: true,
 			unique: true,
 		},
-        email: {
-            type: String,
-            // required: true,
+		email: {
+			type: String,
+			// required: true, // Uncomment this line if email is required
 			unique: true,
 			validate: {
-                validator: function(v) {
-                    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-                },
-                message: props => `${props.value} is not a valid email address!`
-            }
-        },
+				validator: function(v) {
+					return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+				},
+				message: props => `${props.value} is not a valid email address!`
+			}
+		},
 		password: {
 			type: String,
 			required: true,
@@ -44,6 +45,7 @@ const userSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
+// Create the User model using the user schema
 const User = mongoose.model("User", userSchema);
 
 export default User;

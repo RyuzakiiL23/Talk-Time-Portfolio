@@ -5,8 +5,14 @@ import generateToken from "../utils/token.js";
 
 const router = express.Router();
 
+/**
+ * @route   POST /logout
+ * @desc    Logout user
+ * @access  Public
+ */
 router.post("/logout", async (req, res) => {
   try {
+    // Clear the JWT cookie by setting its maxAge to 0
     res.cookie("jwt", "", { maxAge: 0 });
     res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
@@ -15,11 +21,15 @@ router.post("/logout", async (req, res) => {
   }
 });
 
+/**
+ * @route   POST /login
+ * @desc    Login user
+ * @access  Public
+ */
 router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
-    // const isMatch = await bcrypt.compare(password, user.password);
 
     if (!user) {
       return res.status(400).json({ error: "Invalid credentials" });
@@ -29,10 +39,7 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ error: "Invalid credentials" });
     }
 
-    // if (!user || !isMatch) {
-    //   return res.status(400).json({ error: "Invalid credentials" }); // If the user doesn't exist or the password is incorrect, return an error message
-    // }
-
+    // Generate and set a new JWT token for the user
     generateToken(user._id, res);
     res.status(200).json({
       _id: user._id,
@@ -48,12 +55,17 @@ router.post("/login", async (req, res) => {
   }
 });
 
+/**
+ * @route   POST /signup
+ * @desc    Signup user
+ * @access  Public
+ */
 router.post("/signup", async (req, res) => {
   try {
     const { fullName, username, email, password, verifyPassword, gender } =
       req.body;
     if (password !== verifyPassword) {
-	  return res.status(400).json({ error: "Password doesn't match" });
+      return res.status(400).json({ error: "Password doesn't match" });
     }
 
     const user = await User.findOne({ username });
@@ -61,11 +73,12 @@ router.post("/signup", async (req, res) => {
       return res.status(400).json({ error: "Username already exists" });
     }
 
-    // const boyProfilePic = `https://avatar.iran.liara.run/username?username=${username}&length=1&background=A0D1B4&color=518D68`;
-    // const girlProfilePic = `https://avatar.iran.liara.run/username?username=${username}&length=1&background=D7A2FE&color=6d23a6`;
-    // const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
+    // Generate profile picture URL based on gender
     const girlProfilePic = `https://ui-avatars.com/api/?background=D7A2FE&color=6D23A6&name=${username}`;
     const boyProfilePic = `https://ui-avatars.com/api/?&background=A0D1B4&color=518D68&name=${username}`;
+    // Other profile pictures can be generated: uncomment the lines below and comment the lines above
+    // const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
+    // const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
 
     const salt = await bcrypt.genSalt(10);
     const hashPass = await bcrypt.hash(password, salt);
@@ -80,7 +93,9 @@ router.post("/signup", async (req, res) => {
     });
 
     if (newUser) {
+      // Generate and set a new JWT token for the new user
       generateToken(newUser._id, res);
+
       await newUser.save();
       res.status(201).json({
         _id: newUser._id,
@@ -97,4 +112,5 @@ router.post("/signup", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 export default router;
