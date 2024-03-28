@@ -2,8 +2,7 @@
 
 #### _A Real-Time Chat Application_
 
-Welcome to [Talk Time](https://talktimeapp.com/), a real-time chat application built using the MERN stack (MongoDB, Express.js, React.js, Node.js). Users can engage in conversations with each other seamlessly.
-https://github.com/RyuzakiiL23/Talk-Time-Portfolio/blob/jest-test/homepage.png
+Welcome to [Talk Time](https://github.com/RyuzakiiL23/Talk-Time-Portfolio/blob/jest-test/homepage.png/), a real-time chat application built using the MERN stack (MongoDB, Express.js, React.js, Node.js). Users can engage in conversations with each other seamlessly.
 
 ## Tech Stack
 
