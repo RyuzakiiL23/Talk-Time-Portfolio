@@ -1,3 +1,9 @@
+/*
+  This module creates a SocketContext using React's Context API to manage socket connections.
+  It provides a SocketContextProvider component to wrap around the application, allowing access to socket and onlineUsers state.
+  It also exports a custom hook useSocketContext for consuming the SocketContext.
+*/
+
 "use client";
 import { createContext, useState, useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
@@ -35,12 +41,13 @@ export const SocketContextProvider = ({ children }) => {
 
 			return () => socket.close();
 		} else {
-			if (socket) {
+			if (socket) { // // If user is not authenticated, close the socket connection
 				socket.close();
 				setSocket(null);
 			}
 		}
 	}, [authUser]);
 
+	// Provide the socket instance and online users to the context
 	return <SocketContext.Provider value={{ socket, onlineUsers }}>{children}</SocketContext.Provider>;
 };

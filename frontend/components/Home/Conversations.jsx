@@ -1,3 +1,9 @@
+/*
+  This component renders a list of conversations with search functionality, 
+  handles user selection, and fetches messages for the selected conversation.
+*/
+
+// Importing necessary modules and components
 import React, { useState, useEffect } from "react";
 import Searchinput from "./SearchConversations";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -30,6 +36,7 @@ export default function Conversations(props) {
 	const msg = useSelector((state) => state.conversation.value);
   const [filteredConversations, setFilteredConversations] = useState([]);
 
+   // Custom hook to listen for incoming message
 	useListenMessages(); // Use the custom hook
 
 	useEffect(() => {

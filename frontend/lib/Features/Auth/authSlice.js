@@ -1,7 +1,13 @@
+/*
+  This file contains the Redux slice responsible for managing authentication-related state.
+  It defines actions for setting authentication data, checking authentication status, and updating authentication status.
+*/
+
 "use client";
 
 import { createSlice } from "@reduxjs/toolkit";
 
+// Function to get initial state for authentication based on local storage
 function getInitialState() {
   if (typeof window !== "undefined") {
     const storedUser = localStorage.getItem("chat-user");
@@ -18,6 +24,8 @@ export const authSlice = createSlice({
     setAuth: (state, action) => {
       state.value = action.payload;
     },
+
+     // Reducer function to set authentication status to not authenticated
     authentificated: (state) => {
       if (typeof window !== "undefined") {
         state.value = JSON.parse(localStorage.getItem("chat-user"));

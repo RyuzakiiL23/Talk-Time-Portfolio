@@ -1,3 +1,8 @@
+/*
+  This component represents the sign-up page where new users can create an account.
+  It handles user registration by sending sign-up requests to the server and processing the responses.
+*/
+
 "use client";
 
 import React, { useState } from "react";
@@ -22,16 +27,19 @@ export default function SignUp(props) {
 		gender: "",
 	});
 
+	// Function to toggle password visibility
 	const showP = () => {
 		showPass === "password" ? setShowPass("text") : setShowPass("password");
 	};
 
+	// Function to toggle confirm password visibility
 	const showCP = () => {
 		showConfirmPass === "password"
 			? setShowConfirmPass("text")
 			: setShowConfirmPass("password");
 	};
 
+	// Function to handle form submission
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		try {
@@ -56,6 +64,7 @@ export default function SignUp(props) {
 	const authentification = useSelector((state) => state.auth.value);
 	const dispatch = useDispatch();
 
+	// Rendering sign-up form
 	return (
 		<div className="w-[340px] relative flex flex-col p-4 rounded-md text-black bg-white">
 			<Image

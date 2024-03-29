@@ -1,3 +1,8 @@
+/*
+  This component renders a search input field for searching contacts.
+  It allows users to input search terms and filter contacts based on the input.
+*/
+
 import React, { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +14,7 @@ const Searchinput = ({ handleSearch, contacts }) => {
   const [search, setSearch] = useState("");
   const dispatch = useDispatch();
 
+  // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!search) return;
@@ -26,6 +32,7 @@ const Searchinput = ({ handleSearch, contacts }) => {
     }
   };
 
+  // Function to handle input change in the search field
   const handleChange = (e) => {
     setSearch(e.target.value);
     const filteredcontacts = contacts.filter((c) =>
@@ -34,6 +41,7 @@ const Searchinput = ({ handleSearch, contacts }) => {
     handleSearch(filteredcontacts);
   };
 
+  // Function to handle going back to the original contacts list
   const back = () => {
     handleSearch(contacts);
   }

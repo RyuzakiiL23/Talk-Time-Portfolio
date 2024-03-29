@@ -1,3 +1,7 @@
+/*
+  This function extracts and formats the time from a given date string.
+*/
+
 export function extractTime(dateString) {
   const date = new Date(dateString);
   const hours = padZero(date.getHours());

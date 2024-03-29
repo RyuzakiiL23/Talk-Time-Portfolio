@@ -1,3 +1,9 @@
+
+/*
+  This component renders a list of contacts with search functionality, 
+  handles user selection, and fetches messages for the selected user.
+*/
+
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -25,6 +31,8 @@ export default function Contacts(props) {
   const isMobile = props.heightRef;
   const setGoBack = props.gob;
   const setMsgUp = props.msgsUp;
+  
+  // Custom hook to listen for incoming messages
   useListenMessages();
 
   useEffect(() => {
@@ -56,6 +64,7 @@ export default function Contacts(props) {
 
 	},[onlineUsers]);
 
+  // Fetches messages for the selected user when userId changes
 	useEffect(() => {
 		const getMessages = async () => {
 			if (userId === null) {
@@ -86,6 +95,7 @@ export default function Contacts(props) {
 		getMessages();
 	}, [userId]);
 
+   // Function to handle search filtering
   const handleSearch = (filteredContacts) => {
     setFilteredContacts(filteredContacts);
   };

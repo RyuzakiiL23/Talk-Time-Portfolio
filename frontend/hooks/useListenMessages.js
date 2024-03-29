@@ -1,3 +1,9 @@
+/*
+  This custom hook listens for new messages from the socket and updates the Redux store accordingly.
+  It imports the useSocketContext hook to access the socket instance from the SocketContext.
+  It also imports useDispatch and useSelector hooks from react-redux for dispatching actions and selecting state from the Redux store.
+*/
+
 import { useEffect } from "react";
 
 import { useSocketContext } from "../context/SocketContext";

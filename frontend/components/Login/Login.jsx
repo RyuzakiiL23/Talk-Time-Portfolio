@@ -1,3 +1,8 @@
+/*
+  This component represents the login page where users can log in to the application.
+  It handles user authentication by sending login requests to the server and processing the responses.
+*/
+
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
@@ -17,10 +22,12 @@ export default function Login(props) {
 	const [password, setPassword] = useState("");
 	const [showPass, setShowPass] = useState("password");
 
+	// Function to toggle password visibility
 	const showP = () => {
 		showPass === "password" ? setShowPass("text") : setShowPass("password");
 	};
 
+	// Function to handle form submission
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
@@ -54,6 +61,7 @@ export default function Login(props) {
 	//const authentification = useSelector((state) => state.auth.value);
 	const dispatch = useDispatch();
 
+	// Rendering login form
 	return (
 		<div className="w-[340px] relative flex flex-col p-4 rounded-md text-black bg-white">
 			<Image

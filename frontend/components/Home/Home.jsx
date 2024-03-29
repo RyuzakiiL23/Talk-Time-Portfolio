@@ -31,6 +31,7 @@ import { HiDotsVertical } from "react-icons/hi";
 // const me = JSON.parse(localStorage.getItem("chat-user"));
 
 export default function Home() {
+	// redux selectors
 	const me = useSelector((state) => state.auth.value);
 	const [side, setSide] = useState("message");
 	const [showSidebar, setShowSidebar] = useState(false);
@@ -49,6 +50,8 @@ export default function Home() {
 		setIsMobile(window.innerWidth < 1024);
 	};
 
+
+	// Effect hook to handle window resize event
 	useEffect(() => {
 		// Add event listener when component mounts
 		window.addEventListener("resize", handleResize);
@@ -59,11 +62,13 @@ export default function Home() {
 		};
 	}, []);
 
+	// Function to handle sidebar item click
 	const handleSidebarItemClick = (selectedSide) => {
 		setSide(selectedSide);
 		setShowSidebar(false);
 	};
 
+	// render component
 	return (
 		<div className="flex w-screen">
 			<div className="flex relative flex-col w-screen h-screen">

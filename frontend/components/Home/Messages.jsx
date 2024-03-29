@@ -1,3 +1,8 @@
+/*
+  This component renders the messages exchanged between the current user and the interlocutor.
+  It displays messages in chat bubbles, indicating the sender's profile picture, message content, and timestamp.
+*/
+
 "use client";
 
 import React, { useEffect, useRef } from "react";
@@ -10,12 +15,14 @@ export default function Messages() {
 	const interlocuteur = useSelector((state) => state.interlocuteur.value);
 	const bottomOfPanel = useRef(null);
 
+   // Effect to scroll to the bottom of the message panel when new messages arrive
 	useEffect(() => {
 		if (bottomOfPanel.current) {
 			bottomOfPanel.current.scrollIntoView();
 		}
 	}, [interlocuteur, msg]);
 
+  // rendering the component
 	return (
     <>
       <div className="overflow-auto scrollbar-thumb-slate-700 scrollbar-track-slate-300 scrollbar-thin h-full">

@@ -1,3 +1,8 @@
+/*
+  This component handles user logout functionality.
+  It includes a logout button that triggers the logout process when clicked.
+*/
+
 "use client";
 
 import React, { useEffect, useState } from "react";

@@ -1,3 +1,9 @@
+/*
+  This component renders a search input field for searching conversations.
+  It allows users to input search terms and filter conversations based on the input.
+*/
+
+
 import React, { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +19,7 @@ const Searchinput = ({ handleSearch, conversations }) => {
     e.preventDefault();
     if (!search) return;
     
+    // Filtering conversations based on the search input
     const filteredConversations = conversations.filter((c) =>
       c.username.toLowerCase().includes(search.toLowerCase())
     );
@@ -24,8 +31,11 @@ const Searchinput = ({ handleSearch, conversations }) => {
     }
   };
 
+  // Function to handle input change in the search field
   const handleChange = (e) => {
     setSearch(e.target.value);
+
+    // Filtering conversations based on the search input
     const filteredConversations = conversations.filter((c) =>
       c.username.toLowerCase().includes(e.target.value.toLowerCase())
     );
@@ -37,6 +47,7 @@ const Searchinput = ({ handleSearch, conversations }) => {
   }
 
 
+  // Rendering the component
   return (
     <form onSubmit={handleSubmit} className="flex items-center gap-2">
       {/* <h3 onClick={() => back()}>

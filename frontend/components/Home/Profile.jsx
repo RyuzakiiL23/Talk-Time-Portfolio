@@ -1,3 +1,9 @@
+/*
+  This component renders the user profile information and allows users to edit their profile.
+  It displays the user's profile picture, full name, online status, and bio.
+  Users can edit their full name and bio, and save the updates.
+*/
+
 import React, { useEffect, useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
@@ -23,6 +29,8 @@ export default function Profile(props) {
 		bio: data.bio,
 		// Assume other fields as needed
 	});
+
+	// useEffect hook to monitor changes in profile state
 	useEffect(() => {}, [profile]);
 
 	// const handleMouseEnter1 = () => {
@@ -39,6 +47,8 @@ export default function Profile(props) {
 			[name]: value,
 		});
 	};
+
+	// Function to handle form submission and update user profile
 	const handleSubmit = async (e) => {
 		e.preventDefault(); // Prevents the default form submit action
 
@@ -70,6 +80,7 @@ export default function Profile(props) {
 		}
 	};
 
+	// Function to handle key press events
 	const handleKeyPress = (e) => {
 		if (e.key === "Enter") {
 			handleSubmit();

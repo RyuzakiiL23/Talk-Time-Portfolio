@@ -1,3 +1,10 @@
+/*
+  This component renders a message input field along with options to attach files,
+  send emojis, and send messages to the selected interlocutor.
+  It also listens for changes in the conversation and updates accordingly.
+*/
+
+
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { BsEmojiSmile } from "react-icons/bs";
@@ -17,14 +24,17 @@ export default function SendMsg() {
     const emojiPickerRef = useRef(null);
     useListenMessages();
 
+    // Local state to manage emoji picker visibility
     const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
 
+     // Function to handle emoji selection
     const onEmojiClick = (event) => {
         setMessage(message + event.emoji);
     };
 
     useEffect(() => {}, [message]);
 
+    // Effect to handle click outside emoji picker to close it
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (
@@ -46,6 +56,7 @@ export default function SendMsg() {
         };
     }, [emojiPickerVisible]);
 
+    // Function to send a message
     const sendMsg = async () => {
         if (!interlocuteur || !message) return;
         try {
@@ -73,6 +84,7 @@ export default function SendMsg() {
         }
     };
 
+    // Function to handle file upload
     const handleUpload = async () => {
         try {
             const fileInput = document.getElementById("fileInput");
@@ -105,6 +117,7 @@ export default function SendMsg() {
         }
     };
 
+    // Rendering the component
     return (
         <div>
             <div className="flex items-center space-between bg-white absolute h-20 w-full p-8 border-t bottom-0">

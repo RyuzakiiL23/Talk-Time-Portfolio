@@ -1,3 +1,7 @@
+/*
+  This component manages the user state and renders the appropriate component based on authentication status and login/signup state.
+*/
+
 'use client'
 import React from "react";
 import { useSelector } from "react-redux";
@@ -13,9 +17,12 @@ export default function UserState() {
 	// const [logIn, setLogIn] = useState(false);
 	const [log, setLog] = useState(true);
 
+   // Function to toggle between login and signup
 	const changeLog = (val) => {
 		setLog(val);
 	};
+
+  // Rendering appropriate component based on authentication status and login/signup state
 	return (
     <div className="h-screen flex justify-center items-center">
       {auth ? (
