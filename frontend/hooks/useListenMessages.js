@@ -2,8 +2,8 @@ import { useEffect } from "react";
 
 import { useSocketContext } from "../context/SocketContext";
 import { useDispatch, useSelector } from "react-redux";
-import { setMsg } from "@/lib/Features/Conversations/conversationSlice";
-import { setUserData } from "@/lib/Features/UsersData/userDataSlice";
+import { setMsg } from "../lib/Features/Conversations/conversationSlice";
+import { setUserData } from "../lib/Features/UsersData/userDataSlice";
 
 const useListenMessages = () => {
   const dispatch = useDispatch();

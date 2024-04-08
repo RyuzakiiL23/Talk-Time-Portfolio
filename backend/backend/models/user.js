@@ -5,12 +5,22 @@ const userSchema = new mongoose.Schema(
 	{
 		fullName: {
 			type: String,
-			required: true,
+			// required: true,
 		},
 		username: {
 			type: String,
-			required: true,
-			unique: true,
+			// required: true,
+			// unique: true,
+		},
+		family_name: {
+			type: String,
+		},
+		given_name: {
+			type: String,
+		},
+		
+		email_verified: {
+			type: String,
 		},
 		email: {
 			type: String,
@@ -25,12 +35,12 @@ const userSchema = new mongoose.Schema(
 		},
 		password: {
 			type: String,
-			required: true,
+			// required: true,
 			minlength: 6,
 		},
 		gender: {
 			type: String,
-			required: true,
+			// required: true,
 			enum: ["male", "female"],
 		},
 		profilePic: {

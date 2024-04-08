@@ -4,8 +4,8 @@ import { BsEmojiSmile } from "react-icons/bs";
 import { IoIosAttach, IoMdSend } from "react-icons/io";
 import { CiImageOn } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
-import useListenMessages from "@/hooks/useListenMessages";
-import { setMsg } from "@/lib/Features/Conversations/conversationSlice";
+import useListenMessages from "../../hooks/useListenMessages";
+import { setMsg } from "../../lib/Features/Conversations/conversationSlice";
 import EmojiPicker from "emoji-picker-react";
 
 export default function SendMsg() {

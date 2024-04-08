@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
-import { setInterlocuteur } from "@/lib/Features/Interlocuteur/interlocuteurSlice";
+import { setInterlocuteur } from "../../lib/Features/Interlocuteur/interlocuteurSlice";
 import toast from "react-hot-toast";
 import { IoIosArrowBack } from "react-icons/io";
 

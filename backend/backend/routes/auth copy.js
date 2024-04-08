@@ -62,32 +62,48 @@ router.post("/login", async (req, res) => {
  */
 router.post("/signup", async (req, res) => {
   try {
-    const data = req.body;
-    const {email, picture:profilePic, given_name, family_name, username, email_verified } = data;
-    const fullName = `${given_name} ${family_name}`;
-
-    const user = await User.findOne({ email });
-    if (user) {
-      // res.status(201).json({ message: "Username already exists" });
-      generateToken(user._id, res);
-      return res.status(200).json({
-        _id: user._id,
-        email: user.email,
-        fullName,
-        profilePic,
-        username,
-        email_verified,
-      });
+    const { fullName, username, email, password, verifyPassword, gender } =
+      req.body;
+    if (password !== verifyPassword) {
+      return res.status(400).json({ error: "Password doesn't match" });
     }
 
-    const newUser = new User({email, fullName, profilePic, username, email_verified});
+    const user = await User.findOne({ username });
+    if (user) {
+      return res.status(400).json({ error: "Username already exists" });
+    }
+
+    // Generate profile picture URL based on gender
+    // const girlProfilePic = `https://ui-avatars.com/api/?background=D7A2FE&color=6D23A6&name=${username}`;
+    // const boyProfilePic = `https://ui-avatars.com/api/?&background=A0D1B4&color=518D68&name=${username}`;
+    // Other profile pictures can be generated: uncomment the lines below and comment the lines above
+    const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
+    const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
+
+    const salt = await bcrypt.genSalt(10);
+    const hashPass = await bcrypt.hash(password, salt);
+
+    const newUser = new User({
+      fullName,
+      username,
+      email,
+      password: hashPass,
+      gender,
+      profilePic: gender === "female" ? girlProfilePic : boyProfilePic,
+    });
 
     if (newUser) {
       // Generate and set a new JWT token for the new user
       generateToken(newUser._id, res);
 
       await newUser.save();
-      res.status(201).json(newUser);
+      res.status(201).json({
+        _id: newUser._id,
+        fullName: newUser.fullName,
+        username: newUser.username,
+        email: newUser.email,
+        profilePic: newUser.profilePic,
+      });
     } else {
       res.status(400).json({ error: "User data is invalid" });
     }

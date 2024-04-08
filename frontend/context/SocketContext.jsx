@@ -14,7 +14,7 @@ export const useSocketContext = () => {
 };
 
 export const SocketContextProvider = ({ children }) => {
-	const authUser =useSelector((state)=> state.auth.value);
+	const authUser = useSelector((state)=> state.auth.value);
 	const [socket, setSocket] = useState(null);
 	const [onlineUsers, setOnlineUsers] = useState([]);
 	

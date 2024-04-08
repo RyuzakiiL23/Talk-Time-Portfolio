@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import { useSelector, useDispatch } from "react-redux";
-import { setAuth } from "@/lib/Features/Auth/authSlice";
+import { setAuth } from "../../lib/Features/Auth/authSlice";
 import { FaPen } from "react-icons/fa6";
-import useListenMessages from "@/hooks/useListenMessages";
+import useListenMessages from "../../hooks/useListenMessages";
 
 //const data = JSON.parse(localStorage.getItem('chat-user'));
 

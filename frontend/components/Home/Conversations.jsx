@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Searchinput from "./SearchConversations";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
 	setMsg,
 	removeMsg,
-} from "@/lib/Features/Conversations/conversationSlice";
-import { setUserData } from "@/lib/Features/UsersData/userDataSlice";
-import { setInterlocuteur } from "@/lib/Features/Interlocuteur/interlocuteurSlice";
+} from "../../lib/Features/Conversations/conversationSlice";
+import { setUserData } from "../../lib/Features/UsersData/userDataSlice";
+import { setInterlocuteur } from "../../lib/Features/Interlocuteur/interlocuteurSlice";
 import { useSocketContext } from "../../context/SocketContext";
-import useListenMessages from "@/hooks/useListenMessages";
+import useListenMessages from "../../hooks/useListenMessages";
 import { extractTime } from "../utils/extractTime";
 import {
 	RiContactsLine,

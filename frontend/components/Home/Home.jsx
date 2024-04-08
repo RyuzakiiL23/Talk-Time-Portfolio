@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { CiSearch } from "react-icons/ci";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 import { MdOutlineVideoCameraFront } from "react-icons/md";
 import { IoCallOutline } from "react-icons/io5";
@@ -25,7 +25,7 @@ import Messages from "./Messages";
 import SendMsg from "./SendMsg";
 import { IoIosArrowBack } from "react-icons/io";
 import { useSocketContext } from "../../context/SocketContext";
-import useListenMessages from "@/hooks/useListenMessages";
+import useListenMessages from "../../hooks/useListenMessages";
 import { HiDotsVertical } from "react-icons/hi";
 
 // const me = JSON.parse(localStorage.getItem("chat-user"));

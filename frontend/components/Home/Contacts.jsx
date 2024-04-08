@@ -2,18 +2,18 @@
 
 import React, { useState, useEffect } from "react";
 import Searchinput from "./SearchContacts";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { HiDotsVertical } from "react-icons/hi";
 import { useSocketContext } from "../../context/SocketContext";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setMsg,
   removeMsg,
-} from "@/lib/Features/Conversations/conversationSlice";
-import { setUserData } from "@/lib/Features/UsersData/userDataSlice";
-import { setInterlocuteur } from "@/lib/Features/Interlocuteur/interlocuteurSlice";
+} from "../../lib/Features/Conversations/conversationSlice";
+import { setUserData } from "../../lib/Features/UsersData/userDataSlice";
+import { setInterlocuteur } from "../../lib/Features/Interlocuteur/interlocuteurSlice";
 
-import useListenMessages from "@/hooks/useListenMessages";
+import useListenMessages from "../../hooks/useListenMessages";
 
 export default function Contacts(props) {
   const [conversations, setConversations] = useState([]);
@@ -132,13 +132,13 @@ export default function Contacts(props) {
                   <Avatar className="h-8 w-8">
                     <AvatarImage
                       src={item.profilePic}
-                      alt={item.username.slice(0, 1)}
+                      alt={item.email.slice(0, 1)}
                     />
-                    <AvatarFallback>{item.username.slice(0, 1)}</AvatarFallback>
+                    <AvatarFallback>{item.email.slice(0, 1)}</AvatarFallback>
                   </Avatar>
                 </div>
                 <div>
-                  <h4 className="text-sm">{item.username}</h4>
+                  <h4 className="text-sm">{item.email}</h4>
                 </div>
                 <div className="absolute text-gray-500 text-xs right-2">
                   <HiDotsVertical />
