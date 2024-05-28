@@ -10,7 +10,7 @@ const server = http.createServer(app);
 // Create a new instance of Socket.IO server and attach it to the HTTP server
 const io = new Server(server, {
     cors: {
-        origin: ["http://localhost:3000"],
+        origin: ["https://talk-time-mu.vercel.app"],
         methods: ["GET", "POST"]
     }
 });
