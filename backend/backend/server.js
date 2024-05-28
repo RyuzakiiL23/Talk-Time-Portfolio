@@ -17,7 +17,7 @@ import { app, server } from './socket/socket.js';
 dotenv.config();
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://talk-time-portfolio.vercel.app/',
   credentials: true,
 }));
 
