@@ -56,7 +56,7 @@ export default function SendMsg() {
 		if (!interlocuteur || !message) return;
 		try {
 			const res = await fetch(
-				`http://localhost:8080/api/messages/send/${interlocuteur._id}`,
+				`https://talk-time-portfolio.vercel.app/api/messages/send/${interlocuteur._id}`,
 				{
 					method: "POST",
 					credentials: "include",
@@ -92,7 +92,7 @@ export default function SendMsg() {
 			const formData = new FormData();
 			formData.append("file", file);
 
-			const res = await fetch(`http://localhost:8080/api/upload`, {
+			const res = await fetch(`https://talk-time-portfolio.vercel.app/api/upload`, {
 				method: "POST",
 				credentials: "include",
 				headers: {
@@ -118,7 +118,7 @@ export default function SendMsg() {
 		if (!interlocuteur || !fileName) return;
 		try {
 			const res = await fetch(
-				`http://localhost:8080/api/messages/send/${interlocuteur._id}`,
+				`https://talk-time-portfolio.vercel.app/api/messages/send/${interlocuteur._id}`,
 				{
 					method: "POST",
 					credentials: "include",

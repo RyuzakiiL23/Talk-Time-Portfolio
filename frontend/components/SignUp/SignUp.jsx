@@ -35,7 +35,7 @@ export default function SignUp(props) {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		try {
-			const res = await fetch("http://localhost:8080/api/auth/signup", {
+			const res = await fetch("https://talk-time-portfolio.vercel.app/api/auth/signup", {
 				method: "POST",
 				credentials:'include',
 				headers: { "Content-Type": "application/json" },
@@ -81,7 +81,7 @@ export default function SignUp(props) {
 						required={true}
 						type="text"
 						id="fullName"
-						className="rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2  ring-gray-900 outline-0"
+						className="rounded border bg-white border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2  ring-gray-900 outline-0"
 						value={inputs.fullName}
 						onChange={(e) => setInputs({ ...inputs, fullName: e.target.value })}
 					/>
@@ -97,7 +97,7 @@ export default function SignUp(props) {
 						required={true}
 						type="text"
 						id="username"
-						className="rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2  ring-gray-900 outline-0"
+						className="rounded border bg-white border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2  ring-gray-900 outline-0"
 						value={inputs.username}
 						onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
 					/>
@@ -113,7 +113,7 @@ export default function SignUp(props) {
 						required={true}
 						type="email"
 						id="email"
-						className="rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2  ring-gray-900 outline-0"
+						className="rounded border bg-white border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2  ring-gray-900 outline-0"
 						value={inputs.email}
 						onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
 					/>
@@ -129,7 +129,7 @@ export default function SignUp(props) {
 						required={true}
 						type={showPass}
 						id="password"
-						className="rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0"
+						className="rounded border bg-white border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0"
 						value={inputs.password}
 						onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
 					/>
@@ -155,7 +155,7 @@ export default function SignUp(props) {
 						required={true}
 						type={showConfirmPass}
 						id="passwordConfirmation"
-						className="rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0"
+						className="rounded border bg-white border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0"
 						value={inputs.verifyPassword}
 						onChange={(e) =>
 							setInputs({ ...inputs, verifyPassword: e.target.value })

@@ -43,7 +43,7 @@ export default function Profile(props) {
 		e.preventDefault(); // Prevents the default form submit action
 
 		try {
-			const response = await fetch("http://localhost:8080/api/users/update", {
+			const response = await fetch("https://talk-time-portfolio.vercel.app/api/users/update", {
 				method: "PATCH",
 				credentials: "include", // Method type
 				headers: {

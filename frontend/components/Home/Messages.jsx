@@ -49,13 +49,13 @@ export default function Messages() {
 												item.message
 											) : isImageFile(item.file) ? (
 												<a
-													href={`http://localhost:8080/uploads/${item.file}`}
+													href={`https://talk-time-portfolio.vercel.app/uploads/${item.file}`}
 													download={item.file}
 													target="_blank"
 													rel="noopener noreferrer"
 												>
 													<Image
-														src={`http://localhost:8080/uploads/${item.file}`}
+														src={`https://talk-time-portfolio.vercel.app/uploads/${item.file}`}
 														width="0"
 														height="0"
 														sizes="50vw"
@@ -65,7 +65,7 @@ export default function Messages() {
 												</a>
 											) : (
 												<a
-													href={`http://localhost:8080/uploads/${item.file}`}
+													href={`https://talk-time-portfolio.vercel.app/uploads/${item.file}`}
 													download={item.file}
 													target="_blank"
 													rel="noopener noreferrer"
@@ -100,13 +100,13 @@ export default function Messages() {
 												item.message
 											) : isImageFile(item.file) ? (
 												<a
-													href={`http://localhost:8080/uploads/${item.file}`}
+													href={`https://talk-time-portfolio.vercel.app/uploads/${item.file}`}
 													download={item.file}
 													target="_blank"
 													rel="noopener noreferrer"
 												>
 													<Image
-														src={`http://localhost:8080/uploads/${item.file}`}
+														src={`https://talk-time-portfolio.vercel.app/uploads/${item.file}`}
 														width="0"
 														height="0"
 														sizes="50vw"
@@ -116,7 +116,7 @@ export default function Messages() {
 												</a>
 											) : (
 												<a
-													href={`http://localhost:8080/uploads/${item.file}`}
+													href={`https://talk-time-portfolio.vercel.app/uploads/${item.file}`}
 													download={item.file}
 													target="_blank"
 													rel="noopener noreferrer"

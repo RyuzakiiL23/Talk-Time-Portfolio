@@ -21,7 +21,7 @@ export default function LogOut() {
     const logout = async () => {
         try {
             const token = localStorage.getItem("chat-user");
-            const res = await fetch("http://localhost:8080/api/auth/logout", {
+            const res = await fetch("https://talk-time-portfolio.vercel.app/api/auth/logout", {
                 method: "POST",
                 credentials: 'include',
                 headers: {

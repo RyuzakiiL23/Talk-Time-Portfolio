@@ -30,7 +30,7 @@ export default function Contacts(props) {
   useEffect(() => {
     const getConversations = async () => {
       try {
-        const res = await fetch("http://localhost:8080/api/users", {
+        const res = await fetch("https://talk-time-portfolio.vercel.app/api/users", {
           method: "GET",
           credentials: "include",
           headers: {
@@ -64,7 +64,7 @@ export default function Contacts(props) {
 			}
 			try {
 				const res = await fetch(
-					`http://localhost:8080/api/messages/${userId}`,
+					`https://talk-time-portfolio.vercel.app/api/messages/${userId}`,
 					{
 						method: "GET",
 						credentials: "include",
