@@ -35,7 +35,7 @@ export default function SignUp(props) {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		try {
-			const res = await fetch("https://talk-time-portfolio.vercel.app/api/auth/signup", {
+			const res = await fetch("https://talk-time-backend.vercel.app//api/auth/signup", {
 				method: "POST",
 				credentials:'include',
 				headers: { "Content-Type": "application/json" },

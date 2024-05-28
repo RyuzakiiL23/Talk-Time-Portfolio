@@ -20,7 +20,7 @@ export const SocketContextProvider = ({ children }) => {
 	
 	useEffect(() => {
 		if (authUser) {
-			const socket = io("https://talk-time-portfolio.vercel.app", {
+			const socket = io("https://talk-time-backend.vercel.app/", {
 				query: {
 					userId: authUser._id,
 				},
