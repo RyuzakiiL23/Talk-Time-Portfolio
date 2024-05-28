@@ -35,7 +35,7 @@ export default function Conversations(props) {
 	useEffect(() => {
 		const getConversations = async () => {
 			try {
-				const res = await fetch("https://talk-time-backend.vercel.app//api/users", {
+				const res = await fetch("https://talk-time-backend.vercel.app/api/users", {
 					method: "GET",
 					credentials: "include",
 					headers: {
@@ -51,7 +51,7 @@ export default function Conversations(props) {
 				const conversationsWithMessages = await Promise.all(
 					data.map(async (item) => {
 						const messageRes = await fetch(
-							`https://talk-time-backend.vercel.app//api/messages/${item._id}`,
+							`https://talk-time-backend.vercel.app/api/messages/${item._id}`,
 							{
 								method: "GET",
 								credentials: "include",
@@ -91,7 +91,7 @@ export default function Conversations(props) {
 			}
 			try {
 				const res = await fetch(
-					`https://talk-time-backend.vercel.app//api/messages/${userId}`,
+					`https://talk-time-backend.vercel.app/api/messages/${userId}`,
 					{
 						method: "GET",
 						credentials: "include",

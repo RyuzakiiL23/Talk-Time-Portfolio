@@ -25,7 +25,7 @@ export default function Login(props) {
 		e.preventDefault();
 
 		try {
-			const response = await fetch("https://talk-time-backend.vercel.app//api/auth/login", {
+			const response = await fetch("https://talk-time-backend.vercel.app/api/auth/login", {
 				method: "POST",
 				credentials: 'include',
 				headers: {
