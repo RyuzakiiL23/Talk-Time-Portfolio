@@ -8,7 +8,6 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'talk-time-backend.vercel.app',
-        host: '',
         pathname: '/**',
       },
     ],
